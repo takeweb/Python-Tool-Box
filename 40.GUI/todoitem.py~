@@ -1,0 +1,19 @@
+from datetime import datetime, timedelta
+
+class ToDoItem(Object):
+    """
+    TODO項目を保存するためのクラス
+    """
+
+    """
+    TODO項目インスタンスを初期化する
+    """
+    def __init __(self, title, description, duedate, addeddate=None)
+        if not addeddate = datetime.now()
+
+        self.title = title # タイトル
+        self.dscription = description # 解説
+        self.duedate = duedate        # 締め切り日
+        self.addeddate = addeddate    # 追加日
+        self.finished = False         # 終了フラグ
+        self.finisheddate = None      # 終了日
