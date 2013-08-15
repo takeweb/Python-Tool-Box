@@ -8,7 +8,7 @@ year = int(argvs[1])
 base = str(argvs[1])
 
 if (argcnt != 2):
-    print 'Usage: # python %s filename' % argvs[0]
+    print('Usage: # python %s filename' % argvs[0])
     quit()
 
 for cnt in range(4, 16):

@@ -1,5 +1,15 @@
 import os
+import sys
 
-for dirpath, dirnames, filenames in os.walk('D:/ooishi/tmp'):
+argvs = sys.argv
+argcnt = len(argvs)
+
+target = str(argvs[1])
+
+if (argcnt != 2):
+    #print 'Usage: # python %s filename' % argvs[0]
+    quit()
+
+for dirpath, dirnames, filenames in os.walk(target):
     for f in filenames:
         print(os.path.join(dirpath, f))
