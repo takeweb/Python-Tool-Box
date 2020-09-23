@@ -1,0 +1,1 @@
+curl http://127.0.0.1:8080/api/example3 -u hishidama:hoge -X POST -H 'Content-Type: application/json' -d '{ "value1":"aaa", "value2":"bbb" }'ok3

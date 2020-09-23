@@ -1,0 +1,212 @@
+start
+Exception occered: 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "manageTsaPw.py", line 130, in <module>
+    pw = getNextPw()
+  File "manageTsaPw.py", line 69, in getNextPw
+    if getNgPw(pw):
+  File "manageTsaPw.py", line 44, in getNgPw
+    return row[0]
+TypeError: 'NoneType' object is not subscriptable
+start
+end
+start
+end
+start
+Exception occered: UNIQUE constraint failed: ng_passwd.passwd
+Traceback (most recent call last):
+  File "manageTsaPw.py", line 118, in <module>
+    saveDb(tmp_passwd)
+  File "manageTsaPw.py", line 24, in saveDb
+    conn.execute(ins, (passwd, ))
+sqlite3.IntegrityError: UNIQUE constraint failed: ng_passwd.passwd
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+Exception occered: UNIQUE constraint failed: ng_passwd.passwd
+Traceback (most recent call last):
+  File "manageTsaPw.py", line 118, in <module>
+    saveDb(tmp_passwd)
+  File "manageTsaPw.py", line 24, in saveDb
+    conn.execute(ins, (passwd, ))
+sqlite3.IntegrityError: UNIQUE constraint failed: ng_passwd.passwd
+start
+end
+start
+end
+start
+end
+start
+Exception occered: UNIQUE constraint failed: ng_passwd.passwd
+Traceback (most recent call last):
+  File "manageTsaPw.py", line 112, in <module>
+    saveDb(passwd)
+  File "manageTsaPw.py", line 24, in saveDb
+    conn.execute(ins, (passwd, ))
+sqlite3.IntegrityError: UNIQUE constraint failed: ng_passwd.passwd
+start
+end
+start
+Exception occered: UNIQUE constraint failed: ng_passwd.passwd
+Traceback (most recent call last):
+  File "manageTsaPw.py", line 114, in <module>
+    saveDb(passwd)
+  File "manageTsaPw.py", line 24, in saveDb
+    conn.execute(ins, (passwd, ))
+sqlite3.IntegrityError: UNIQUE constraint failed: ng_passwd.passwd
+start
+Exception occered: can only concatenate str (not "tuple") to str
+Traceback (most recent call last):
+  File "manageTsaPw.py", line 111, in <module>
+    print("pw" + pw)
+TypeError: can only concatenate str (not "tuple") to str
+start
+end
+start
+end
+start
+end
+start
+Exception occered: 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "manageTsaPw.py", line 111, in <module>
+    if pw[0] == passwd:
+TypeError: 'NoneType' object is not subscriptable
+start
+Exception occered: 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "manageTsaPw.py", line 111, in <module>
+    if pw[0] == passwd:
+TypeError: 'NoneType' object is not subscriptable
+start
+Exception occered: 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "manageTsaPw.py", line 111, in <module>
+    if pw[0] == passwd:
+TypeError: 'NoneType' object is not subscriptable
+start
+Exception occered: 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "manageTsaPw.py", line 111, in <module>
+    if pw[0] == passwd:
+TypeError: 'NoneType' object is not subscriptable
+start
+Exception occered: 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "manageTsaPw.py", line 111, in <module>
+    print("pw:" + pw[0])
+TypeError: 'NoneType' object is not subscriptable
+start
+Exception occered: 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "manageTsaPw.py", line 111, in <module>
+    print("pw:" + pw[0])
+TypeError: 'NoneType' object is not subscriptable
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+Exception occered: name 'pw' is not defined
+Traceback (most recent call last):
+  File "manageTsaPw.py", line 122, in <module>
+    if pw is None or pw[0] != passwd:
+NameError: name 'pw' is not defined
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end

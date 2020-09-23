@@ -1,0 +1,185 @@
+リビジョン: 1360
+
+作者: 
+
+日時: 2015年10月27日 22:47:22
+
+メッセージ:
+
+2015/10/27 総合故障対応:No356 予定の枝番があるのに親番の完了時にエラーチェックが行われていない不具合対応
+
+----
+
+変更 : /trunk/CPJ03/WEB-INF/RakAppl/pj/src/jp/co/taisei/cpj/custom/cpj_A2070p.java
+
+
+
+
+リビジョン: 1359
+
+作者: L0003054
+
+日時: 2015年10月27日 22:39:10
+
+メッセージ:
+
+2015/10/27　総合障害357　で業務依頼票がPDFで紐付けされていたプロジェクトの付け替え対応。　佐藤（幸）
+
+----
+
+変更 : /trunk/CPJ03/WEB-INF/RakAppl/pj/def/cpj_A2070.xml
+
+変更 : /trunk/CPJ03/WEB-INF/RakAppl/pj/script/cpj_H2011.js
+
+変更 : /trunk/CPJ03/WEB-INF/RakAppl/pj/src/jp/co/taisei/cpj/custom/cpj_A2070p.java
+
+変更 : /trunk/CPJ03/WEB-INF/RakAppl/pj/src/jp/co/taisei/cpj/custom/cpj_H2011p.java
+
+
+
+
+リビジョン: 1358
+
+作者: 
+
+日時: 2015年10月27日 21:49:02
+
+メッセージ:
+
+2015/10/27：総合テストNo286対応
+
+----
+
+変更 : /trunk/CPJ03/WEB-INF/RakAppl/pj/src/jp/co/taisei/cpj/custom/cpj_A2070p.java
+
+
+
+
+リビジョン: 1357
+
+作者: 
+
+日時: 2015年10月27日 21:42:21
+
+メッセージ:
+
+2015/10/27 総合故障対応:No.360 本工事支店コードが登録から漏れてたので追加、最新区分１の203のPJ番号設定が漏れていたので追加
+
+----
+
+変更 : /trunk/CPJ03/WEB-INF/RakAppl/pj/def/cpj_A2070.xml
+
+変更 : /trunk/CPJ03/WEB-INF/RakAppl/pj/src/jp/co/taisei/cpj/custom/cpj_A2070p.java
+
+
+
+
+リビジョン: 1356
+
+作者: L0003054
+
+日時: 2015年10月27日 20:05:24
+
+メッセージ:
+
+2015/10/27　総合障害344　システム日付とメインコモン処理日が混在しているのをシステム日付に統一　佐藤（幸）
+
+----
+
+変更 : /trunk/CPJ01/WEB-INF/RakAppl/pj/src/jp/co/taisei/cpj/sub/cpjApprovalWF.java
+
+変更 : /trunk/CPJ03/WEB-INF/RakAppl/pj/src/jp/co/taisei/cpj/custom/cpj_A2070p.java
+
+変更 : /trunk/CPJ03/WEB-INF/RakAppl/pj/src/jp/co/taisei/cpj/custom/cpj_A2090p.java
+
+変更 : /trunk/CPJ03/WEB-INF/RakAppl/pj/src/jp/co/taisei/cpj/custom/cpj_C2020p.java
+
+変更 : /trunk/CPJ03/WEB-INF/RakAppl/pj/src/jp/co/taisei/cpj/custom/cpj_H2011p.java
+
+
+
+
+リビジョン: 1355
+
+作者: L0002834
+
+日時: 2015年10月27日 19:16:39
+
+メッセージ:
+
+2015.10.27 齋藤 No359 照会権限でのSQL不具合
+
+----
+
+変更 : /trunk/CPJ03/WEB-INF/RakAppl/pj/src/jp/co/taisei/cpj/custom/cpjwd_A2040p.java
+
+
+
+
+リビジョン: 1354
+
+作者: L0003433
+
+日時: 2015年10月27日 18:18:50
+
+メッセージ:
+
+障害No329決裁者と審査者が同じでも承認履歴に入るように修正
+
+----
+
+変更 : /trunk/CPJ03/WEB-INF/RakAppl/pj/src/jp/co/taisei/cpj/common/custom/FutaiJigyoBat.java
+
+
+
+
+リビジョン: 1353
+
+作者: L0003433
+
+日時: 2015年10月27日 18:16:05
+
+メッセージ:
+
+障害No322更新確認画面の戻入計画欄のhiddenを修正
+
+----
+
+変更 : /trunk/CPJ03/WEB-INF/RakAppl/pj/def/cpj_C2010.xml
+
+
+
+
+リビジョン: 1352
+
+作者: 
+
+日時: 2015年10月27日 17:47:22
+
+メッセージ:
+
+内部故障対応（DDエラーチェック時に発注者ボタンが押せなくなる不具合を修正） 2015/10/27 安藤
+
+----
+
+変更 : /trunk/CPJ03/WEB-INF/RakAppl/pj/src/jp/co/taisei/cpj/custom/cpj_A2090p.java
+
+
+
+
+リビジョン: 1350
+
+作者: 
+
+日時: 2015年10月27日 16:36:04
+
+メッセージ:
+
+2015/10/27 総合故障対応:No.341 WF連携漏れのエラーメッセージが出なくなった不具合対応 松本
+
+----
+
+変更 : /trunk/CPJ03/WEB-INF/RakAppl/pj/src/jp/co/taisei/cpj/custom/cpj_A2110p.java
+
+
+

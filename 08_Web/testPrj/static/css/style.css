@@ -1,0 +1,32 @@
+@charset 'utf-8';
+
+body {
+    background: cyan;
+}
+
+.month {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    table-layout: fixed;
+}
+
+.month td, .month th {
+    border: 1px solid #eceeef;
+    padding: .75rem;
+    vertical-align: top;
+}
+
+.month tr{
+    height: 100px;
+}
+
+.blue {
+    background: rgb(0, 38, 255);
+    color: white;
+}
+
+.red {
+    background: rgb(255, 0, 0);
+    color: white;
+}

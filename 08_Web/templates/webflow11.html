@@ -1,0 +1,11 @@
+<html>
+    <body>
+        {%- if text1 -%}
+        入力された値は<strong>{{ text1 }}</strong>です。
+        {%- endif %}
+        <form method="post">
+            <input type="text" name="text1" />
+            <input type="submit" value="POSTで送信" />
+        </form>
+    </body>
+</html>

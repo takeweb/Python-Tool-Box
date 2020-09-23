@@ -1,0 +1,216 @@
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+Exception occered: name 'bmi' is not defined
+Traceback (most recent call last):
+  File "manageHelth.py", line 261, in <module>
+    updateByKeyDb(data_id, dt_regist, height, weight, bmi)
+NameError: name 'bmi' is not defined
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+Exception occered: name 'weight' is not defined
+Traceback (most recent call last):
+  File "manageHelth.py", line 266, in <module>
+    bmi = calcBmi(height, weight)
+NameError: name 'weight' is not defined
+start
+Exception occered: can only concatenate str (not "float") to str
+Traceback (most recent call last):
+  File "manageHelth.py", line 267, in <module>
+    print("BMI: " + bmi)
+TypeError: can only concatenate str (not "float") to str
+start
+Exception occered: can only concatenate str (not "float") to str
+Traceback (most recent call last):
+  File "manageHelth.py", line 267, in <module>
+    print("BMI: " + bmi)
+TypeError: can only concatenate str (not "float") to str
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+Exception occered: near "　AND": syntax error
+Traceback (most recent call last):
+  File "manageHelth.py", line 272, in <module>
+    data = readAllForGraph(from_date, to_date)
+  File "manageHelth.py", line 88, in readAllForGraph
+    curs.execute(select, (from_date, to_date))
+sqlite3.OperationalError: near "　AND": syntax error
+start
+end
+start
+end
+start
+end
+start
+Exception occered: can only concatenate str (not "datetime.timedelta") to str
+Traceback (most recent call last):
+  File "manageHelth.py", line 274, in <module>
+    data = readAllForGraph(from_date, to_date)
+  File "manageHelth.py", line 88, in readAllForGraph
+    dt_to_date = to_date + datetime.timedelta(days=1)
+TypeError: can only concatenate str (not "datetime.timedelta") to str
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+Exception occered: time data '2020-09−01' does not match format '%Y-%m-%d'
+Traceback (most recent call last):
+  File "manageHelth.py", line 276, in <module>
+    data = readAllForGraph(from_date, to_date)
+  File "manageHelth.py", line 89, in readAllForGraph
+    dt_to_date = datetime.datetime.strptime(to_date, '%Y-%m-%d')
+  File "/Users/oishi/.pyenv/versions/anaconda3-2019.10/lib/python3.7/_strptime.py", line 577, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "/Users/oishi/.pyenv/versions/anaconda3-2019.10/lib/python3.7/_strptime.py", line 359, in _strptime
+    (data_string, format))
+ValueError: time data '2020-09−01' does not match format '%Y-%m-%d'
+start
+Exception occered: time data '2020-09−31' does not match format '%Y-%m-%d'
+Traceback (most recent call last):
+  File "manageHelth.py", line 276, in <module>
+    data = readAllForGraph(from_date, to_date)
+  File "manageHelth.py", line 89, in readAllForGraph
+    dt_to_date = datetime.datetime.strptime(to_date, '%Y-%m-%d')
+  File "/Users/oishi/.pyenv/versions/anaconda3-2019.10/lib/python3.7/_strptime.py", line 577, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "/Users/oishi/.pyenv/versions/anaconda3-2019.10/lib/python3.7/_strptime.py", line 359, in _strptime
+    (data_string, format))
+ValueError: time data '2020-09−31' does not match format '%Y-%m-%d'
+start
+Exception occered: time data '2020-08−31' does not match format '%Y-%m-%d'
+Traceback (most recent call last):
+  File "manageHelth.py", line 276, in <module>
+    data = readAllForGraph(from_date, to_date)
+  File "manageHelth.py", line 89, in readAllForGraph
+    dt_to_date = datetime.datetime.strptime(to_date, '%Y-%m-%d')
+  File "/Users/oishi/.pyenv/versions/anaconda3-2019.10/lib/python3.7/_strptime.py", line 577, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "/Users/oishi/.pyenv/versions/anaconda3-2019.10/lib/python3.7/_strptime.py", line 359, in _strptime
+    (data_string, format))
+ValueError: time data '2020-08−31' does not match format '%Y-%m-%d'
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end

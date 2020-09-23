@@ -1,0 +1,56 @@
+start:2020/09/06 09:13:37
+mode=save
+end:2020/09/06 09:13:37
+start:2020/09/06 09:14:49
+mode=graph
+end:2020/09/06 09:14:49
+start:2020/09/06 10:09:00
+start:2020/09/06 10:10:13
+start:2020/09/06 10:10:58
+mode=show_monthly_graph
+Exception occered: name 'calendar' is not defined
+Traceback (most recent call last):
+  File "manageHelth.py", line 284, in <module>
+    to_date = from_date.replace(day=calendar.monthrange(from_date.year, from_date.month)[1])
+NameError: name 'calendar' is not defined
+start:2020/09/06 10:12:19
+mode=show_monthly_graph
+Exception occered: strptime() argument 1 must be str, not datetime.date
+Traceback (most recent call last):
+  File "manageHelth.py", line 286, in <module>
+    data = readAllForGraph(from_date, to_date)
+  File "manageHelth.py", line 90, in readAllForGraph
+    dt_to_date = datetime.datetime.strptime(to_date, '%Y-%m-%d')
+TypeError: strptime() argument 1 must be str, not datetime.date
+start:2020/09/06 10:14:19
+mode=show_monthly_graph
+Exception occered: strptime() argument 1 must be str, not datetime.date
+Traceback (most recent call last):
+  File "manageHelth.py", line 288, in <module>
+    data = readAllForGraph(from_date, to_date)
+  File "manageHelth.py", line 90, in readAllForGraph
+    dt_to_date = datetime.datetime.strptime(to_date, '%Y-%m-%d')
+TypeError: strptime() argument 1 must be str, not datetime.date
+start:2020/09/06 10:59:59
+start:2020/09/06 11:00:27
+mode=show_monthly_graph
+Exception occered: strptime() argument 1 must be str, not datetime.date
+Traceback (most recent call last):
+  File "manageHelth.py", line 289, in <module>
+    data = readAllForGraph(from_date, to_date)
+  File "manageHelth.py", line 90, in readAllForGraph
+    dt_to_date = datetime.datetime.strptime(to_date, '%Y-%m-%d')
+TypeError: strptime() argument 1 must be str, not datetime.date
+start:2020/09/06 11:10:10
+mode=show_monthly_graph
+end:2020/09/06 11:10:10
+start:2020/09/06 11:26:56
+mode=show_monthly_graph
+Exception occered: dispGraph() missing 1 required positional argument: 'title_add'
+Traceback (most recent call last):
+  File "manageHelth.py", line 291, in <module>
+    dispGraph(data)
+TypeError: dispGraph() missing 1 required positional argument: 'title_add'
+start:2020/09/06 11:28:25
+mode=show_monthly_graph
+end:2020/09/06 11:28:25

@@ -1,0 +1,219 @@
+start
+Exception occered: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+Traceback (most recent call last):
+  File "managePw.py", line 137, in <module>
+    data_id = int(args.data_id)
+TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+start
+Exception occered: 4 values for 3 columns
+Traceback (most recent call last):
+  File "managePw.py", line 145, in <module>
+    saveDb(passwd, current_flg)
+  File "managePw.py", line 28, in saveDb
+    conn.execute(ins, (passwd, current_flg))
+sqlite3.OperationalError: 4 values for 3 columns
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+Exception occered: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+Traceback (most recent call last):
+  File "managePw.py", line 141, in <module>
+    current_flg = int(args.current_flg)
+TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+start
+end
+start
+Exception occered: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+Traceback (most recent call last):
+  File "managePw.py", line 177, in <module>
+    data_id = int(args.data_id)
+TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+start
+Exception occered: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+Traceback (most recent call last):
+  File "managePw.py", line 177, in <module>
+    data_id = int(args.data_id)
+TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+start
+Exception occered: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+Traceback (most recent call last):
+  File "managePw.py", line 159, in <module>
+    data_id = int(args.data_id)
+TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+start
+end
+start
+end
+start
+Exception occered: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+Traceback (most recent call last):
+  File "managePw.py", line 182, in <module>
+    data_id = int(args.data_id)
+TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+start
+end
+start
+Exception occered: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+Traceback (most recent call last):
+  File "managePw.py", line 185, in <module>
+    data_id = int(args.data_id)
+TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+start
+end
+start
+end
+start
+end
+start
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+Exception occered: name 'row' is not defined
+Traceback (most recent call last):
+  File "managePw.py", line 218, in <module>
+    pw = readByKeyDb(data_id)
+  File "managePw.py", line 88, in readByKeyDb
+    return row[0]
+NameError: name 'row' is not defined
+start
+end
+start
+Exception occered: Incorrect number of bindings supplied. The current statement uses 0, and there are 1 supplied.
+Traceback (most recent call last):
+  File "managePw.py", line 218, in <module>
+    pw = readByKeyDb(data_id)
+  File "managePw.py", line 84, in readByKeyDb
+    curs.execute(select, (data_id,))
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 0, and there are 1 supplied.
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+Exception occered: local variable 'upd' referenced before assignment
+Traceback (most recent call last):
+  File "managePw.py", line 232, in <module>
+    updateByKeyDb(data_id, passwd, current_flg)
+  File "managePw.py", line 145, in updateByKeyDb
+    conn.execute(upd)
+UnboundLocalError: local variable 'upd' referenced before assignment
+start
+Exception occered: local variable 'upd' referenced before assignment
+Traceback (most recent call last):
+  File "managePw.py", line 232, in <module>
+    updateByKeyDb(data_id, passwd, current_flg)
+  File "managePw.py", line 145, in updateByKeyDb
+    conn.execute(upd)
+UnboundLocalError: local variable 'upd' referenced before assignment
+start
+Exception occered: local variable 'upd' referenced before assignment
+Traceback (most recent call last):
+  File "managePw.py", line 232, in <module>
+    updateByKeyDb(data_id, passwd, current_flg)
+  File "managePw.py", line 145, in updateByKeyDb
+    conn.execute(upd)
+UnboundLocalError: local variable 'upd' referenced before assignment
+start
+Exception occered: local variable 'upd_1' referenced before assignment
+Traceback (most recent call last):
+  File "managePw.py", line 232, in <module>
+    updateByKeyDb(data_id, passwd, current_flg)
+  File "managePw.py", line 145, in updateByKeyDb
+    conn.execute(upd_1)
+UnboundLocalError: local variable 'upd_1' referenced before assignment
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
+start
+end
