@@ -195,6 +195,16 @@ def deleteByKeyDb(data_id):
     conn.commit()
     conn.close()
 
+def show_bmi():
+    # BMIと適正体重を計算
+    bmi = calcBmi(height, weight)
+    suitable_weight = calcSuitableWeight(height)
+
+    result = hantei(bmi)
+    print("BMI(Body Mass Index): " + str(bmi) + " / 判定: " + result)
+    print("適正体重:" + str(suitable_weight) + "kg" + " / あと: " + str(round((suitable_weight - weight) * -1, 2)) + "kg！")
+    print("目標体重:" + str(target_weight) + "kg" + " / あと: " + str(round((target_weight - weight) * -1, 2)) + "kg！")
+
 if __name__ == '__main__':
     dt_today = datetime.datetime.today()
 
@@ -240,22 +250,15 @@ if __name__ == '__main__':
         
         # モード切り替え
         if mode == 'save':
-            # BMIと適正体重を計算
-            bmi = calcBmi(height, weight)
-            suitable_weight = calcSuitableWeight(height)
+            show_bmi()
 
-            result = hantei(bmi)
-            print("BMI(Body Mass Index): " + str(bmi) + " / 判定: " + result)
-            print("適正体重:" + str(suitable_weight) + "kg" + " / あと: " + str(round((suitable_weight - weight) * -1, 2)) + "kg！")
-            print("目標体重:" + str(target_weight) + "kg" + " / あと: " + str(round((target_weight - weight) * -1, 2)) + "kg！")
-            
             # 登録
             saveDb(dt_regist, height, weight, bmi)
             data_id = readMaxSeq("health")
             readByKeyDb(data_id)
 
         elif mode == 'read_all':
-            # 全権取得
+            # 全件取得
             datas = readAllDb()
             for data in datas:
                 print(data)
@@ -275,9 +278,8 @@ if __name__ == '__main__':
             updateByKeyDb(data_id, dt_regist, height, weight, bmi)
 
         elif mode == 'show_bmi':
-            # BMIを計算
-            bmi = calcBmi(height, weight)
-            print("BMI: " + str(bmi))
+            # BMIを計算・表示
+            show_bmi()
 
         elif mode == 'show_monthly_graph':
             # 年月指定でグラフ表示
