@@ -5,16 +5,18 @@ python -m pydoc manageHelth
 
 # 全件取得
 python manageHelth.py
-python manageHelth.py -m read_all
+python manageHelth.py -m select_all
+
+# 登録(登録日時をシステム日付で設定)
+python manageHelth.py -m save -w 79.9
 
 # 登録
 python manageHelth.py -m save -t 176.7 -w 80.5 -d '2020/06/27'
-
-# 登録(登録日時をシステム日付で)
-python manageHelth.py -m save -w 79.9
+python manageHelth.py -m save -w 77.7 -d '2020/09/23'
+python manageHelth.py -m save -w 78.2 -d '2020/10/04'
 
 # キーで検索
-python manageHelth.py -m read_key -i 20
+python manageHelth.py -m select_key -i 20
 
 # キーで削除
 python manageHelth.py -m del_key -i 22

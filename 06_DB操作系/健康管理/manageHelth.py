@@ -15,7 +15,7 @@ def get_settings():
 
     return json_data
 
-def calcBmi(cm_height, weight):
+def calc_bmi(cm_height, weight):
     """
     BMIを算出
 
@@ -35,7 +35,7 @@ def calcBmi(cm_height, weight):
     bmi = round(weight / m_height ** 2, 2)
     return bmi
 
-def calcSuitableWeight(cm_height):
+def calc_suitable_weight(cm_height):
     """
     適正体重を算出
     """
@@ -43,7 +43,7 @@ def calcSuitableWeight(cm_height):
     suitableWeight = round(m_height ** 2 * 22, 1)
     return suitableWeight
 
-def hantei(bmi):
+def hantei_bmi(bmi):
     """
     BMI判定
     """
@@ -57,7 +57,7 @@ def hantei(bmi):
         result = "肥満(重)"
     return result
 
-def dispGraph(rows, title_add):
+def disp_graph(rows, title_add):
     """
     グラフ表示
     """
@@ -73,7 +73,7 @@ def dispGraph(rows, title_add):
     plt.ylabel("weight(kg)")
     plt.show()
 
-def readAllForGraph(from_date, to_date):
+def select_all_for_graph(from_date, to_date):
     """
     データベースからグラフ用データ取得
     """
@@ -96,7 +96,7 @@ def readAllForGraph(from_date, to_date):
     conn.close()
     return rows
 
-def saveDb(regist_datetime, height, weight, bmi):
+def save(regist_datetime, height, weight, bmi):
     """
     データベースに保存
     """
@@ -112,7 +112,7 @@ def saveDb(regist_datetime, height, weight, bmi):
     conn.commit()
     conn.close()
 
-def readAllDb():
+def select_all():
     """
     データベースから全件取得
     """
@@ -134,7 +134,7 @@ def readAllDb():
     conn.close()
     return rows
 
-def readMaxSeq(table_name):
+def select_max_seq(table_name):
     """
     最大シーケンス取得
     """
@@ -147,7 +147,7 @@ def readMaxSeq(table_name):
     conn.close()
     return row[0]
 
-def readByKeyDb(data_id):
+def select_by_key(data_id):
     """
     キーで１件取得
     """
@@ -169,7 +169,7 @@ def readByKeyDb(data_id):
     conn.close()
     return row
 
-def updateByKeyDb(data_id, regist_datetime, height, weight, bmi):
+def update_by_key(data_id, regist_datetime, height, weight, bmi):
     """
     キーで更新
     """
@@ -185,7 +185,7 @@ def updateByKeyDb(data_id, regist_datetime, height, weight, bmi):
     conn.commit()
     conn.close()
 
-def deleteByKeyDb(data_id):
+def delete_by_key(data_id):
     """
     キーで削除
     """
@@ -197,13 +197,19 @@ def deleteByKeyDb(data_id):
 
 def show_bmi():
     # BMIと適正体重を計算
-    bmi = calcBmi(height, weight)
-    suitable_weight = calcSuitableWeight(height)
+    bmi = calc_bmi(height, weight)
+    suitable_weight = calc_suitable_weight(height)
 
-    result = hantei(bmi)
-    print("BMI(Body Mass Index): " + str(bmi) + " / 判定: " + result)
-    print("適正体重:" + str(suitable_weight) + "kg" + " / あと: " + str(round((suitable_weight - weight) * -1, 2)) + "kg！")
-    print("目標体重:" + str(target_weight) + "kg" + " / あと: " + str(round((target_weight - weight) * -1, 2)) + "kg！")
+    result_bmi = hantei_bmi(bmi)
+    result_suitable_weight = round((suitable_weight - weight) * -1, 2)
+    hantei_suitable_weight = 'あと' if result_suitable_weight > 0 else '達成'
+    result_target_weight = round((target_weight - weight) * -1, 2)
+    hantei_target_weight = 'あと' if result_target_weight > 0 else '達成'
+
+    print("BMI(Body Mass Index): " + str(bmi) + " / 判定: " + result_bmi)
+    print("適正体重:" + str(suitable_weight) + "kg" + " / " + hantei_suitable_weight + ": " + str(result_suitable_weight) + "kg！")
+    print("目標体重:" + str(target_weight)   + "kg" + " / " + hantei_target_weight   + ": " + str(result_target_weight)   + "kg！")
+    return bmi
 
 if __name__ == '__main__':
     dt_today = datetime.datetime.today()
@@ -225,7 +231,7 @@ if __name__ == '__main__':
     try:
         # コマンドライン引数設定
         parser = argparse.ArgumentParser()
-        parser.add_argument('-m', '--mode', default='read_all')
+        parser.add_argument('-m', '--mode', default='select_all')
         parser.add_argument('-t', '--height', default=height)
         parser.add_argument('-w', '--weight')
         parser.add_argument('-d', '--dt_regist', default=dt_today)
@@ -250,32 +256,32 @@ if __name__ == '__main__':
         
         # モード切り替え
         if mode == 'save':
-            show_bmi()
+            bmi = show_bmi()
 
             # 登録
-            saveDb(dt_regist, height, weight, bmi)
-            data_id = readMaxSeq("health")
-            readByKeyDb(data_id)
+            save(dt_regist, height, weight, bmi)
+            data_id = select_max_seq("health")
+            select_by_key(data_id)
 
-        elif mode == 'read_all':
+        elif mode == 'select_all':
             # 全件取得
-            datas = readAllDb()
+            datas = select_all()
             for data in datas:
                 print(data)
 
         elif mode == 'read_key':
             # キーで検索
-            data = readByKeyDb(data_id)
+            data = select_by_key(data_id)
             print(data)
 
         elif mode == 'del_key':
             # キーで削除
-            deleteByKeyDb(data_id)
+            delete_by_key(data_id)
 
         elif mode == 'upd_key':
-            bmi = calcBmi(height, weight)
+            bmi = calc_bmi(height, weight)
             # キーで更新
-            updateByKeyDb(data_id, dt_regist, height, weight, bmi)
+            update_by_key(data_id, dt_regist, height, weight, bmi)
 
         elif mode == 'show_bmi':
             # BMIを計算・表示
@@ -288,17 +294,18 @@ if __name__ == '__main__':
             print(from_date)
             to_date = from_date.replace(day=calendar.monthrange(from_date.year, from_date.month)[1])
             print(to_date)
-            data = readAllForGraph(str(from_date), str(to_date))            
+            data = select_all_for_graph(str(from_date), str(to_date))            
             print(data)
-            dispGraph(data, str(target_year_month))
+            disp_graph(data, str(target_year_month))
 
         else:
             # 期間指定でグラフ表示
-            data = readAllForGraph(from_date, to_date)
+            data = select_all_for_graph(from_date, to_date)
             print(data)
-            dispGraph(data)
+            disp_graph(data)
 
         logger.info('end:' + dt_today.strftime('%Y/%m/%d %H:%M:%S'))
 
     except Exception as e:
         logger.exception('Exception occered: %s', e)
+        print('Exception occered: %s', e)
