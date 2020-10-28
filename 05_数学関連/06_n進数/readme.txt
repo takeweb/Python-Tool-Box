@@ -1,4 +1,8 @@
-◆自力計算の方(元々2進数専用)
+cd /Users/oishi/develop/python3/Python-Tool-Box/05_数学関連/06_n進数
+python -m unittest
+
+
+◆自力計算の方(元々2進数専用だったものを改良)
 python decUtil.py -n 100 -d 2
 1100100
 python decUtil.py -n 100 -d 8
@@ -16,16 +20,16 @@ python decUtil.py -m a2d -n 1A -d 16
 26
 
 ◆新しい方(Pythonの関数を利用)
-python conv_dec_to_n.py -n 100 -d 2
+python conv_dec_to_any.py -n 100 -d 2
 0b1100100
-python conv_dec_to_n.py -n 100 -d 8
+python conv_dec_to_any.py -n 100 -d 8
 0o144
-python conv_dec_to_n.py -n 100 -d 16
+python conv_dec_to_any.py -n 100 -d 16
 0x64
 
-python conv_dec_to_n.py -m a2d -n 0b1100100 -d 2
+python conv_dec_to_any.py -m a2d -n 0b1100100 -d 2
 100
-python conv_dec_to_n.py -m a2d -n 0o144 -d 8
+python conv_dec_to_any.py -m a2d -n 0o144 -d 8
 100
-python conv_dec_to_n.py -m a2d -n 0x64 -d 16
+python conv_dec_to_any.py -m a2d -n 0x64 -d 16
 100

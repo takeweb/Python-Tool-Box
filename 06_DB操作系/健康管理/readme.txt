@@ -14,6 +14,8 @@ python manageHelth.py -m save -w 79.9
 python manageHelth.py -m save -t 176.7 -w 80.5 -d '2020/06/27'
 python manageHelth.py -m save -w 77.7 -d '2020/09/23'
 python manageHelth.py -m save -w 78.2 -d '2020/10/04'
+python manageHelth.py -m save -w 76.4 -d '2020/10/14'
+python manageHelth.py -m save -w 75.8 -d '2020/10/20'
 
 # キーで検索
 python manageHelth.py -m select_key -i 20
@@ -31,6 +33,7 @@ python manageHelth.py -m show_bmi -w 77.9
 # 年月指定でグラフ表示
 python manageHelth.py -m show_monthly_graph -tym 202008
 python manageHelth.py -m show_monthly_graph -tym 202009
+python manageHelth.py -m show_monthly_graph -tym 202010
 
 # 指定期間指定でグラフ表示
 python manageHelth.py -m show_graph -from 2019-10-01 -to 2020-07-31
