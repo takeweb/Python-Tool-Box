@@ -3,7 +3,7 @@
 
 import sys, argparse
 
-def convert(target, target_div):
+def convert_dec_to_any(target, target_div):
     if target_div == 2:
         result = bin(int(target))
     elif target_div == 8:
@@ -34,8 +34,8 @@ if __name__ == '__main__':
             sys.exit()
 
         if mode == "d2a":
-            # 10進数をm進数へ変換する
-            result = convert(num, div)
+            # 10進数をn進数へ変換する
+            result = convert_dec_to_any(num, div)
         else:
             # m進数を10進数へ変換する
             result = int(num, div)
