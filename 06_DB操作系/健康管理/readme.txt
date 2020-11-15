@@ -1,4 +1,5 @@
 cd /Users/oishi/develop/python3/Python-Tool-Box/06_DB操作系/健康管理
+cd C:\Users\oishi\dev\Python-Tool-Box\06_DB操作系\健康管理
 
 # ドキュメント表示
 python -m pydoc manageHelth
@@ -34,6 +35,7 @@ python manageHelth.py -m show_bmi -w 77.9
 python manageHelth.py -m show_monthly_graph -tym 202008
 python manageHelth.py -m show_monthly_graph -tym 202009
 python manageHelth.py -m show_monthly_graph -tym 202010
+python manageHelth.py -m show_monthly_graph -tym 202011
 
 # 指定期間指定でグラフ表示
 python manageHelth.py -m show_graph -from 2019-10-01 -to 2020-07-31
