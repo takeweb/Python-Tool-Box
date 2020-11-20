@@ -169,6 +169,50 @@ def select_by_key(data_id):
     conn.close()
     return row
 
+def select_max_weight():
+    """
+    最大体重だった日のデータを表示
+    """
+    conn = sqlite3.connect(db_file)
+    curs = conn.cursor()
+    select = '''SELECT
+                      regist_datetime
+                    , height
+                    , weight
+                    , bmi
+                FROM
+                    health
+                WHERE
+                    weight = (SELECT MAX(weight) FROM health)
+            '''
+    curs.execute(select)
+    row = curs.fetchone()
+    curs.close()
+    conn.close()
+    return row
+
+def select_min_weight():
+    """
+    最小体重だった日のデータを表示
+    """
+    conn = sqlite3.connect(db_file)
+    curs = conn.cursor()
+    select = '''SELECT
+                      regist_datetime
+                    , height
+                    , weight
+                    , bmi
+                FROM
+                    health
+                WHERE
+                    weight = (SELECT MIN(weight) FROM health)
+            '''
+    curs.execute(select)
+    row = curs.fetchone()
+    curs.close()
+    conn.close()
+    return row
+
 def update_by_key(data_id, regist_datetime, height, weight, bmi):
     """
     キーで更新
@@ -256,10 +300,8 @@ if __name__ == '__main__':
         
         # モード切り替え
         if mode == 'save':
-            bmi = show_bmi()
-
             # 登録
-            save(dt_regist, height, weight, bmi)
+            save(dt_regist, height, weight, show_bmi())
             data_id = select_max_seq("health")
             select_by_key(data_id)
 
@@ -296,13 +338,24 @@ if __name__ == '__main__':
             print(to_date)
             data = select_all_for_graph(str(from_date), str(to_date))            
             print(data)
-            disp_graph(data, str(target_year_month))
+            disp_year_month = target_year_month[0:4] + '/' + target_year_month[4:6]
+            disp_graph(data, str(disp_year_month))
+
+        elif mode == 'max_weight':
+            # 最大体重だった日のデータを表示
+            max_weight = select_max_weight()
+            print(max_weight)
+
+        elif mode == 'min_weight':
+            # 最小体重だった日のデータを表示
+            min_weight = select_min_weight()
+            print(min_weight)
 
         else:
             # 期間指定でグラフ表示
             data = select_all_for_graph(from_date, to_date)
             print(data)
-            disp_graph(data)
+            disp_graph(data, from_date + '~' + to_date)
 
         logger.info('end:' + dt_today.strftime('%Y/%m/%d %H:%M:%S'))
 
