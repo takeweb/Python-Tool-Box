@@ -18,6 +18,9 @@ python manageHelth.py -m save -w 79.9
 # 登録(日付指定)
 python manageHelth.py -m save -t 176.7 -w 80.5 -d '2020/06/27'
 python manageHelth.py -m save -w 76.3 -d '2020/11/14'
+python manageHelth.py -m save -w 74.7 -d '2020/12/01'
+python manageHelth.py -m save -w 74.5 -d '2020/12/05'
+python manageHelth.py -m save -w 74.5 -d '2020/12/06'
 
 # キーで検索
 python manageHelth.py -m select_key -i 20
@@ -39,9 +42,10 @@ python manageHelth.py -m max_weight
 python manageHelth.py -m min_weight
 
 # 年月指定でグラフ表示
-python manageHelth.py -m show_monthly_graph -tym 202011
+python manageHelth.py -m show_monthly_graph -tym 202012
 
 # 指定期間指定でグラフ表示
-python manageHelth.py -m show_graph -from 2020-09-01 -to 2020-11-19
+python manageHelth.py -m show_graph -from 2020-11-01 -to 2020-12-01
+python manageHelth.py -m show_graph -from 2020-11-09 -to 2020-12-08
 
 以上

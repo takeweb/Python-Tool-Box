@@ -1,0 +1,10 @@
+id
+routeBaseId
+northeast
+southwest
+copyrights
+overviewPath
+overviewPolyline
+summary
+warnings
+waypointOrder
