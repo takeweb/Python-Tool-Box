@@ -1,0 +1,4 @@
+{
+    "log_filename" : "./log/managePW.log",
+    "db_file" : "passwd.db"
+}
