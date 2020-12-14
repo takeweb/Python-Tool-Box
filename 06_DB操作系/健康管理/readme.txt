@@ -45,4 +45,8 @@ python manageHelth.py -m show_monthly_graph -tym 202012
 python manageHelth.py -m show_graph -from 2020-11-01 -to 2020-12-01
 python manageHelth.py -m show_graph -from 2020-11-09 -to 2020-12-08
 
+# 直近１ヶ月でグラフ表示
+python manageHelth.py -m show_past_month_graph -to 2020-12-14
+python manageHelth.py -m show_past_month_graph
+
 以上
