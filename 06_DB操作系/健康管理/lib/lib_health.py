@@ -58,7 +58,7 @@ def disp_graph(rows, title_add):
     plt.ylabel("weight(kg)")
     plt.show()
 
-def show_bmi(height, weight, target_weight):
+def show_bmi(height, weight, target_weight, before=0):
     # BMIと適正体重を計算
     bmi = calc_bmi(height, weight)
     suitable_weight = calc_suitable_weight(height)
@@ -68,8 +68,11 @@ def show_bmi(height, weight, target_weight):
     hantei_suitable_weight = 'あと' if result_suitable_weight > 0 else '達成'
     result_target_weight = round((target_weight - weight) * -1, 2)
     hantei_target_weight = 'あと' if result_target_weight > 0 else '達成'
+    result_ratio = round((before - weight) * -1, 2)
 
     print("BMI(Body Mass Index): " + str(bmi) + " / 判定: " + result_bmi)
     print("適正体重:" + str(suitable_weight) + "kg" + " / " + hantei_suitable_weight + ": " + str(result_suitable_weight) + "kg！")
     print("目標体重:" + str(target_weight)   + "kg" + " / " + hantei_target_weight   + ": " + str(result_target_weight)   + "kg！")
+    if before != 0:
+        print("前日比　:" + str(result_ratio)   + "kg")
     return bmi

@@ -45,10 +45,12 @@ if __name__ == '__main__':
         
         # モード切り替え
         if mode == 'save':
+            # 前回最新データ取得
+            before_data = lib_db.select_by_key(db_file, lib_db.select_max_seq(db_file, "health"))
+            before = before_data[3]
+
             # 登録
-            lib_db.save(db_file, dt_regist, height, weight, lib_health.show_bmi(height, weight, target_weight))
-            data_id = lib_db.select_max_seq(db_file, "health")
-            lib_db.select_by_key(db_file, data_id)
+            lib_db.save(db_file, dt_regist, height, weight, lib_health.show_bmi(height, weight, target_weight, before))
 
         elif mode == 'select_all':
             # 全件取得
