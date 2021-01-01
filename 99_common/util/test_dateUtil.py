@@ -3,11 +3,11 @@
 
 import unittest
 import datetime, sys
-sys.path.append('/Users/oishi/develop/python3/Python-Tool-Box/99_common')
 import util.dateUtil as dateUtil
 
-class TestConvSeirekiToWareki(unittest.TestCase):
+class TestDateUtil(unittest.TestCase):
     def test_convSeirekiToWareki(self):
+        # 曜日無・デフォルト引数
         self.assertEqual("明治元年10月23日", dateUtil.convSeirekiToWareki("18681023"))
         self.assertEqual("明治45年7月29日", dateUtil.convSeirekiToWareki("19120729"))
         self.assertEqual("大正元年7月30日", dateUtil.convSeirekiToWareki("19120730"))
@@ -18,7 +18,7 @@ class TestConvSeirekiToWareki(unittest.TestCase):
         self.assertEqual("平成31年4月30日", dateUtil.convSeirekiToWareki("20190430"))
         self.assertEqual("令和元年5月1日", dateUtil.convSeirekiToWareki("20190501"))
         self.assertEqual("令和2年9月8日", dateUtil.convSeirekiToWareki("20200908"))
-
+        # 曜日無・引数でfalse指定
         self.assertEqual("明治元年10月23日", dateUtil.convSeirekiToWareki("18681023", False))
         self.assertEqual("明治45年7月29日", dateUtil.convSeirekiToWareki("19120729", False))
         self.assertEqual("大正元年7月30日", dateUtil.convSeirekiToWareki("19120730", False))
@@ -29,7 +29,7 @@ class TestConvSeirekiToWareki(unittest.TestCase):
         self.assertEqual("平成31年4月30日", dateUtil.convSeirekiToWareki("20190430", False))
         self.assertEqual("令和元年5月1日", dateUtil.convSeirekiToWareki("20190501", False))
         self.assertEqual("令和2年9月8日", dateUtil.convSeirekiToWareki("20200908", False))
-        
+        # 曜日付き・引数でtrue指定
         self.assertEqual("明治元年10月23日(金)", dateUtil.convSeirekiToWareki("18681023", True))
         self.assertEqual("明治45年7月29日(月)", dateUtil.convSeirekiToWareki("19120729", True))
         self.assertEqual("大正元年7月30日(火)", dateUtil.convSeirekiToWareki("19120730", True))
@@ -75,3 +75,26 @@ class TestConvSeirekiToWareki(unittest.TestCase):
         self.assertEqual(datetime.datetime(2020, 1, 30, 12, 30, 20), dateUtil.conv_str_datetime("2020-01-30 12:30:20"))
         self.assertEqual(datetime.datetime(2020, 7, 31, 12, 30, 20), dateUtil.conv_str_datetime("2020年07月31日 12:30:20"))
 
+    def test_get_one_month_before(self):
+        # 前の月が閏年(29日まで)の場合
+        self.assertEqual(datetime.date(2020,  2, 27), dateUtil.get_one_month_before(datetime.date(2020,  3, 26)))
+        self.assertEqual(datetime.date(2020,  2, 28), dateUtil.get_one_month_before(datetime.date(2020,  3, 27)))
+        self.assertEqual(datetime.date(2020,  2, 29), dateUtil.get_one_month_before(datetime.date(2020,  3, 28)))
+        self.assertEqual(datetime.date(2020,  3,  1), dateUtil.get_one_month_before(datetime.date(2020,  3, 29)))
+        self.assertEqual(datetime.date(2020,  3,  1), dateUtil.get_one_month_before(datetime.date(2020,  3, 30)))
+        # 前の月が28日までの場合
+        self.assertEqual(datetime.date(2019,  2, 27), dateUtil.get_one_month_before(datetime.date(2019,  3, 26)))
+        self.assertEqual(datetime.date(2019,  2, 28), dateUtil.get_one_month_before(datetime.date(2019,  3, 27)))
+        self.assertEqual(datetime.date(2019,  3,  1), dateUtil.get_one_month_before(datetime.date(2019,  3, 28)))
+        self.assertEqual(datetime.date(2019,  3,  1), dateUtil.get_one_month_before(datetime.date(2019,  3, 29)))
+        self.assertEqual(datetime.date(2019,  3,  1), dateUtil.get_one_month_before(datetime.date(2019,  3, 30)))
+        # 前の月が31日までの場合
+        self.assertEqual(datetime.date(2020,  3,  1), dateUtil.get_one_month_before(datetime.date(2020,  3, 31)))
+        self.assertEqual(datetime.date(2020, 10, 30), dateUtil.get_one_month_before(datetime.date(2020, 11, 29)))
+        self.assertEqual(datetime.date(2020, 10, 31), dateUtil.get_one_month_before(datetime.date(2020, 11, 30)))
+        self.assertEqual(datetime.date(2020, 12,  1), dateUtil.get_one_month_before(datetime.date(2020, 12, 31)))
+        self.assertEqual(datetime.date(2020, 12,  2), dateUtil.get_one_month_before(datetime.date(2021,  1,  1)))
+        # # 前の月が30日までの場合
+        self.assertEqual(datetime.date(2020, 11,  2), dateUtil.get_one_month_before(datetime.date(2020, 12,  1)))
+        self.assertEqual(datetime.date(2020, 11, 30), dateUtil.get_one_month_before(datetime.date(2020, 12, 29)))
+        self.assertEqual(datetime.date(2020, 12,  1), dateUtil.get_one_month_before(datetime.date(2020, 12, 30)))

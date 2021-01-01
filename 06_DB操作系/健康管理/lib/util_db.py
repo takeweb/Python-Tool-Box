@@ -103,7 +103,8 @@ def select_max_weight(db_file):
     conn = sqlite3.connect(db_file)
     curs = conn.cursor()
     select = '''SELECT
-                      regist_datetime
+                      data_id
+                    , regist_datetime
                     , height
                     , weight
                     , bmi
@@ -125,7 +126,8 @@ def select_min_weight(db_file):
     conn = sqlite3.connect(db_file)
     curs = conn.cursor()
     select = '''SELECT
-                      regist_datetime
+                      data_id
+                    , regist_datetime
                     , height
                     , weight
                     , bmi

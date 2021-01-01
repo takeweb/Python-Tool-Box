@@ -1,3 +1,4 @@
 .history/
 **/log/**
 08_web/testPrj/bin/**
+**/*.log
