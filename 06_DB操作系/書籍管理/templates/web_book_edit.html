@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>書籍管理</title>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+    <body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarBook">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/list"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>&ensp;Book Database</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarBook">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/detail/{{ book.data_id }}"><span class="glyphicon glyphicon-saved" aria-hidden="true"></span>&ensp;参照</a></li>
+                        <li class="active"><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&ensp;編集</a></li>
+                        <li><a href="/list"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&ensp;一覧</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="table-responsive">
+            <form method="post" action="/update">
+                <table class="table table-striped" width="70%">
+                    <tr>
+                        <td width="30%">ID：</td>
+                        <td width="70%">
+                            <label>{{ book.data_id }}</label>
+                            <input type="hidden" name="data_id" value="{{ book.data_id }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>ISBN：</td>
+                        <td>
+                            <input type="text" name="isbn" value="{{ book.isbn }}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>書名：</td>
+                        <td>
+                            <input type="text" name="name" value="{{ book.name }}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>著者名：</td>
+                        <td>
+                            <input type="text" name="author" value="{{ book.author }}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>翻訳者名：</td>
+                        <td>
+                            <input type="text" name="translator" value="{{ book.translator }}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>発行元：</td>
+                        <td>
+                            <input type="text" name="publisher" value="{{ book.publisher }}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>発売元：</td>
+                        <td>
+                            <input type="text" name="selling_agency" value="{{ book.selling_agency }}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>定価：</td>
+                        <td>
+                            <input type="text" name="original_price" value="{{ book.original_price }}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>買値：</td>
+                        <td>
+                            <input type="text" name="bid_price" value="{{ book.bid_price }}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>売値：</td>
+                        <td>
+                            <input type="text" name="selling_price" value="{{ book.selling_price }}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>所有フラグ：</td>
+                        <td>
+                            <input type="text" name="owned_flg" value="{{ book.owned_flg }}" />
+    <!--                        <select name="owned_flg">
+                                <option value="1">男性</option>
+                                <option value="0">女性</option>
+                            </select>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>備考：</td>
+                        <td>
+                            <input type="text" name="remarks" value="{{ book.remarks }}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>タグ：</td>
+                        <td>
+                            <input type="text" name="tag" value="{{ book.tag }}" />
+                        </td>
+                    </tr>
+                </table>
+                <input type="submit" value="更新" />
+            </form>
+        </div>
+    </body>
+</html>

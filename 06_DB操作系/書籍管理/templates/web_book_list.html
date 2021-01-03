@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Bootstrapの基本テンプレート</title>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+    <body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarBook">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/list"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>&ensp;Book Database</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarBook">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/new"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&ensp;登録</a></li>
+                        <li class="active"><a href="#"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&ensp;一覧</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-right" role="search" method="post" action="/search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="検索キーワード" name="seach_keyword" value="{{ seach_keyword }}" />
+                        </div>
+                        <button type="submit" class="btn btn-default">検索</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thread>
+                    <tr>
+                        <th>ID</th>
+                        <th>ISBN</th>
+                        <th>書名</th>
+                        <th>著者</th>
+                        <th>翻訳者</th>
+                        <th>発行元</th>
+                        <th>発売元</th>
+                        <th>定価</th>
+                        <th>買値</th>
+                        <th>売値</th>
+                        <th>所有フラグ</th>
+                        <th>備考</th>
+                        <th>タグ</th>
+                    </tr>
+                </thread>
+                <tbody>
+                    {% for book in list %}
+                    <tr>
+                        <td><a href="/detail/{{ book.data_id }}">{{ book.data_id }}</a></td>
+                        <td>{{ book.isbn }}</td>
+                        <td>{{ book.name }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.translator }}</td>
+                        <td>{{ book.publisher }}</td>
+                        <td>{{ book.selling_agency }}</td>
+                        <td>{{ book.original_price }}</td>
+                        <td>{{ book.bid_price }}</td>
+                        <td>{{ book.selling_price }}</td>
+                        <td>{{ book.owned_flg }}</td>
+                        <td>{{ book.remarks }}</td>
+                        <td>{{ book.tag }}</td>
+                    </tr>
+                    {% else %}
+                        <td>no entry exist!</td>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

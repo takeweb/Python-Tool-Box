@@ -3,8 +3,10 @@
 
 import datetime
 import jpholiday
-import pathlib, os, sys, re
+import pathlib, os, sys, re, calendar
+from dateutil.relativedelta import relativedelta
 
+# 定数宣言　各和暦の最初の日
 MEIJI = datetime.date(1868, 10, 23)
 TAISHO = datetime.date(1912, 7, 30)
 SHOWA = datetime.date(1926, 12, 25)
@@ -15,13 +17,12 @@ def conv_str_datetime(arg_dt_regist):
     """
     文字列からdatetime型へ変換して返却する。
     """
-    
     if isinstance(arg_dt_regist, datetime.datetime):
         dt_regist = arg_dt_regist
     else:
-        re1 = re.compile("^(\d{4})\D(\d{2})\D(\d{2})\D* (\d{2}):(\d{2}):(\d{2})$")
-        re2 = re.compile("^(\d{4})\D(\d{2})\D(\d{2})\D* (\d{2}):(\d{2})$")
-        re3 = re.compile("^(\d{4})\D(\d{2})\D(\d{2})\D*$")
+        re1 = re.compile(r"^(\d{4})\D(\d{2})\D(\d{2})\D* (\d{2}):(\d{2}):(\d{2})$")
+        re2 = re.compile(r"^(\d{4})\D(\d{2})\D(\d{2})\D* (\d{2}):(\d{2})$")
+        re3 = re.compile(r"^(\d{4})\D(\d{2})\D(\d{2})\D*$")
         arg_dt_regist = str(arg_dt_regist)
 
         if re.search(re1, arg_dt_regist):
@@ -43,11 +44,40 @@ def conv_str_datetime(arg_dt_regist):
 
     return dt_regist
 
+def get_one_month_before(dt_date):
+    """
+    直近１ヶ月前の日付を取得
+    """
+    dt_one_month_before = dt_date - relativedelta(days=30)
+    adjust = 0
+
+    # 2月特別処理
+    if dt_one_month_before.month == 2:
+        # 前の月が閏年(29日まで)の場合
+        if calendar.isleap(dt_one_month_before.year):
+            if int(dt_date.day) < 30:
+                adjust = 2
+            else:
+                adjust = 1
+        # 前の月が28日までの場合
+        else:
+            if int(dt_date.day) < 29:
+                adjust = 3
+            else:
+                adjust = 31 - dt_date.day
+    else:
+        # 前の月が30日までの場合
+        if calendar.monthrange(dt_one_month_before.year, dt_one_month_before.month)[1] < 31:
+            adjust = 1
+
+    dt_one_month_before = dt_one_month_before + relativedelta(days=adjust)
+
+    return dt_one_month_before
+
 def convSeirekiToWareki(arg_date, week_flg=False):
     """
     西暦の年月日(yyyymmdd)を和暦(元号＋年)に変換
     """
-
     w_list = ['月', '火', '水', '木', '金', '土', '日']
     input_date = datetime.date(int(arg_date[0:4])
                                 , int(arg_date[4:6])
@@ -69,7 +99,7 @@ def convSeirekiToWareki(arg_date, week_flg=False):
         gengo = "令和"
         wareki_year = input_date.year - (REIWA.year - 1)
     else:
-        wareki = "変換不可"
+        gengo = "変換不可"
 
     if wareki_year == 1:
         wareki_year = "元"
@@ -88,7 +118,6 @@ def convWarekiToSeireki(input_ymd):
     """
     西暦の年月日(datetime.date)を和暦(元号＋年)に変換
     """
-
     gengo = input_ymd[0:2]
     wareki_year = input_ymd[2:input_ymd.find("年")]
     if wareki_year == "元":
@@ -115,7 +144,6 @@ def isBizDay(dt_date):
     """
     営業日判定
     """
-
     conf = 'my_holiday.txt'
     current_dir = pathlib.Path(__file__).resolve().parent
     conf_file = os.path.join(current_dir, conf)

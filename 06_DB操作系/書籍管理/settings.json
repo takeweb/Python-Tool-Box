@@ -1,0 +1,4 @@
+{
+    "log_filename" : "./log/manageBook",
+    "db_file" : "books.db"
+}

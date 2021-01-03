@@ -3,3 +3,7 @@ log
 .history
 **/log/**
 08_web/testPrj/bin/**
+**/*.log
+*.pyc
+**/.DS_Store
+06_DB操作系/書籍管理/lib/__pycache__/
