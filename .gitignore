@@ -2,7 +2,6 @@
 **/log/**
 08_web/testPrj/bin/**
 **/*.log
-**/*.pyc
+*.pyc
 **/.DS_Store
-**/__pycache__
-**/lib/__pycache__
+06_DB操作系/書籍管理/lib/__pycache__/
