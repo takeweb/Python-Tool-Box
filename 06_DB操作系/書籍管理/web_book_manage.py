@@ -37,10 +37,19 @@ def get_list():
     """
     一覧表示
     """
+    util_db.Book.db_init(db_file)
     list = util_db.Book.select_all(db_file)
     # table = ItemTable(list)
     # return table.__html__()
     return render_template('web_book_list.html', list=list)
+
+@app.route('/search', methods=['POST'])
+def search():
+    """
+    キーワード検索
+    """
+    list = util_db.Book.select_by_keyword(db_file, request.form['seach_keyword'])
+    return render_template('web_book_list.html', list=list, seach_keyword=request.form['seach_keyword'])
 
 @app.route('/detail/<int:id>', methods=['GET'])
 def get_detail(id):
@@ -82,7 +91,7 @@ def new_book(request):
     original_price = request.form['original_price'] if 'original_price' in request.form else 0
     bid_price      = request.form['bid_price']      if 'bid_price'      in request.form else 0
     selling_price  = request.form['selling_price']  if 'selling_price'  in request.form else 0
-    owned_flg      = request.form['owned_flg']      if 'owned_flg'      in request.form else ''
+    owned_flg      = request.form['owned_flg']      if 'owned_flg'      in request.form and request.form['owned_flg'] != '' else 1
     remarks        = request.form['remarks']        if 'remarks'        in request.form else ''
     tag            = request.form['tag']            if 'tag'            in request.form else ''
 
@@ -90,14 +99,6 @@ def new_book(request):
                         , publisher, selling_agency, original_price, bid_price, selling_price
                         , owned_flg, remarks, tag)
     return book
-
-# @app.route('/edit', methods=['GET', 'POST'])
-# def edit():
-#     """
-#     編集表示
-#     """
-#     book = util_db.Book(db_file, request.form['data_id'])
-#     return render_template('web_book_edit.html', book=book)
 
 @app.route('/edit/<int:id>', methods=['GET'])
 def edit(id):
@@ -117,7 +118,7 @@ def update():
         # book = util_db.Book(db_file, request.form['data_id'])
         # 更新
         book.update_by_key()
-        return render_template('web_book_detail.html', book=book)
+        return render_template('web_book_detail.html', book=book, done_flg=1)
 
 @app.route('/delete/<int:id>', methods=['GET'])
 def delete(id):
