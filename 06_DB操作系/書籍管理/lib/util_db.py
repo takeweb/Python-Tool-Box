@@ -1,11 +1,12 @@
 import datetime, sqlite3, os
 
 class Book:
-    def __init__(self, db_file, data_id, isbn='', name='', author='', translator=''
+    def __init__(self, db_file, mode, data_id, isbn='', name='', author='', translator=''
                 , publisher='', selling_agency='', original_price=0, bid_price=0, selling_price=0
-                , owned_flg='1', remarks='', tag=''):
+                , owned_flg='', remarks='', tag=''):
         self.db_init(db_file)
         row = self.select_by_key(data_id)
+        # 新規登録
         if row is None:
             self.data_id = data_id               # data_id
             self.isbn = isbn                     # ISBN
@@ -21,19 +22,34 @@ class Book:
             self.remarks = remarks               # 備考
             self.tag = tag                       # タグ
         else:
-            self.data_id = row[0]
-            self.isbn = isbn if isbn != '' else row[1]
-            self.name = name if name != '' else row[2]
-            self.author = author if author != '' else row[3]
-            self.translator = translator if translator != '' else row[4]
-            self.publisher = publisher if publisher != '' else row[5]
-            self.selling_agency = selling_agency if selling_agency != '' else row[6]
-            self.original_price = original_price if original_price != 0 else row[7]
-            self.bid_price = bid_price if bid_price != 0 else row[8]
-            self.selling_price = selling_price if selling_price != 0 else row[9]
-            self.owned_flg = owned_flg if owned_flg != '' else row[10]
-            self.remarks = remarks if remarks != '' else row[11]
-            self.tag = tag if tag != '' else row[12]
+            if mode == 'update':
+                self.data_id = row[0]
+                self.isbn = isbn if isbn != '' else row[1]
+                self.name = name if name != '' else row[2]
+                self.author = author if author != '' else row[3]
+                self.translator = translator if translator != '' else row[4]
+                self.publisher = publisher if publisher != '' else row[5]
+                self.selling_agency = selling_agency if selling_agency != '' else row[6]
+                self.original_price = original_price if original_price != 0 else row[7]
+                self.bid_price = bid_price if bid_price != 0 else row[8]
+                self.selling_price = selling_price if selling_price != 0 else row[9]
+                self.owned_flg = owned_flg if owned_flg != '' else row[10]
+                self.remarks = remarks if remarks != '' else row[11]
+                self.tag = tag if tag != '' else row[12]
+            else:
+                self.data_id = row[0]
+                self.isbn = row[1]
+                self.name = row[2]
+                self.author = row[3]
+                self.translator = row[4]
+                self.publisher = row[5]
+                self.selling_agency = row[6]
+                self.original_price = row[7]
+                self.bid_price = row[8]
+                self.selling_price = row[9]
+                self.owned_flg = row[10]
+                self.remarks = row[11]
+                self.tag = row[12]
         # print(self.data_id)
         # print(self.isbn)
         # print(self.name)
@@ -228,7 +244,7 @@ class Book:
         conn.close()
         list = []
         for row in rows:
-            book = Book(db_file, row[0], row[1], row[2], row[3], row[4], row[5], row[6]
+            book = Book(db_file, 'view', row[0], row[1], row[2], row[3], row[4], row[5], row[6]
                             , row[7], row[8], row[9], row[10], row[11], row[12])
             list.append(book)
         return list
@@ -278,7 +294,7 @@ class Book:
         conn.close()
         list = []
         for row in rows:
-            book = Book(db_file, row[0], row[1], row[2], row[3], row[4], row[5], row[6]
+            book = Book(db_file, 'view', row[0], row[1], row[2], row[3], row[4], row[5], row[6]
                             , row[7], row[8], row[9], row[10], row[11], row[12])
             list.append(book)
         return list

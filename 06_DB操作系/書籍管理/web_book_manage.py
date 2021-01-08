@@ -14,20 +14,6 @@ from lib import util_book
 app = Flask(__name__)
 book = None
 
-class ItemTable(Table):
-    # classes = ['class1', 'class2']
-    detail = LinkCol('detail', 'get_detail', url_kwargs=dict(id='data_id'))
-    edit = LinkCol('edit', 'edit', url_kwargs=dict(id='data_id'))
-    delete = LinkCol('delete', 'delete', url_kwargs=dict(id='data_id'))
-    data_id = Col('ID')
-    isbn = Col('ISBN')
-    name = Col('書名')
-    author = Col('著者')
-    selling_agency = Col('翻訳者')
-    publisher = Col('発行元')
-    selling_agency = Col('発売元')
-    original_price = Col('定価')
-
 @app.route('/', methods=['GET'])
 def get_index():
     return get_list()
@@ -39,8 +25,6 @@ def get_list():
     """
     util_db.Book.db_init(db_file)
     list = util_db.Book.select_all(db_file)
-    # table = ItemTable(list)
-    # return table.__html__()
     return render_template('web_book_list.html', list=list)
 
 @app.route('/search', methods=['POST'])
@@ -56,7 +40,7 @@ def get_detail(id):
     """
     詳細表示
     """
-    book = util_db.Book(db_file, id)
+    book = util_db.Book(db_file, 'view', id)
     return render_template('web_book_detail.html', book=book)
 
 @app.route('/new', methods=['GET'])
@@ -72,12 +56,12 @@ def save():
     新規登録
     """
     if request.method == 'POST':
-        book = new_book(request)
+        book = new_book(request, 'new')
         # 登録
         book.save()
         return render_template('web_book_new.html', book=book)
 
-def new_book(request):
+def new_book(request, mode):
     """
     Bookクラスをrequestの内容で初期化して返却
     """
@@ -91,11 +75,11 @@ def new_book(request):
     original_price = request.form['original_price'] if 'original_price' in request.form else 0
     bid_price      = request.form['bid_price']      if 'bid_price'      in request.form else 0
     selling_price  = request.form['selling_price']  if 'selling_price'  in request.form else 0
-    owned_flg      = request.form['owned_flg']      if 'owned_flg'      in request.form and request.form['owned_flg'] != '' else 1
+    owned_flg      = request.form['owned_flg']      if 'owned_flg'      in request.form else 1
     remarks        = request.form['remarks']        if 'remarks'        in request.form else ''
     tag            = request.form['tag']            if 'tag'            in request.form else ''
 
-    book = util_db.Book(db_file, data_id, isbn, name, author, translator
+    book = util_db.Book(db_file, mode, data_id, isbn, name, author, translator
                         , publisher, selling_agency, original_price, bid_price, selling_price
                         , owned_flg, remarks, tag)
     return book
@@ -105,7 +89,7 @@ def edit(id):
     """
     編集表示
     """
-    book = util_db.Book(db_file, id)
+    book = util_db.Book(db_file, 'view', id)
     return render_template('web_book_edit.html', book=book)
 
 @app.route('/update', methods=['POST'])
@@ -114,8 +98,7 @@ def update():
     更新
     """
     if request.method == 'POST':
-        book = new_book(request)
-        # book = util_db.Book(db_file, request.form['data_id'])
+        book = new_book(request, 'update')
         # 更新
         book.update_by_key()
         return render_template('web_book_detail.html', book=book, done_flg=1)
@@ -123,9 +106,8 @@ def update():
 @app.route('/delete/<int:id>', methods=['GET'])
 def delete(id):
     """
-    詳細表示
+    削除
     """
-    book = util_db.Book(db_file, id)
     book.delete_by_key(id)
     return get_list()
 
