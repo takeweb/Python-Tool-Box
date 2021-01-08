@@ -86,8 +86,22 @@ if __name__ == '__main__':
             print(to_date)
             data = util_db.select_all_for_graph(db_file, str(from_date), str(to_date))            
             print(data)
-            disp_year_month = target_year_month[0:4] + '/' + target_year_month[4:6]
-            util_health.disp_graph(data, str(disp_year_month))
+            disp_year_month = target_year_month[0:4] + '-' + target_year_month[4:6]
+            avg_weight = util_db.select_ave_weight_term(db_file, str(from_date), str(to_date))
+            min_weight = util_db.select_min_weight_term(db_file, str(from_date), str(to_date))
+            max_weight = util_db.select_max_weight_term(db_file, str(from_date), str(to_date))
+            title = disp_year_month + ' / AVG:' + str(avg_weight) + 'kg / MIN:' + str(min_weight) + 'kg / MAX:' + str(max_weight) + 'kg'
+            util_health.disp_graph(data, title)
+
+        elif mode == 'show_term_graph':
+            # 期間指定でグラフ表示
+            data = util_db.select_all_for_graph(db_file, from_date, to_date)
+            print(data)
+            avg_weight = util_db.select_ave_weight_term(db_file, str(from_date), str(to_date))
+            min_weight = util_db.select_min_weight_term(db_file, str(from_date), str(to_date))
+            max_weight = util_db.select_max_weight_term(db_file, str(from_date), str(to_date))
+            title = 'TERM:' + str(from_date) + '~' + str(to_date) + ' / AVG:' + str(avg_weight) + 'kg / MIN:' + str(min_weight) + 'kg / MAX:' + str(max_weight) + 'kg'
+            util_health.disp_graph(data, title)
 
         elif mode == 'show_past_month_graph':
             # 直近１ヶ月をグラフ表示
@@ -104,23 +118,24 @@ if __name__ == '__main__':
 
             data = util_db.select_all_for_graph(db_file, str(from_date), str(to_date))            
             print(data)
-            util_health.disp_graph(data, str(from_date) + '~' + str(to_date))
+            avg_weight = util_db.select_ave_weight_term(db_file, str(from_date), str(to_date))
+            min_weight = util_db.select_min_weight_term(db_file, str(from_date), str(to_date))
+            max_weight = util_db.select_max_weight_term(db_file, str(from_date), str(to_date))
+            title = 'TERM:' + str(from_date) + '~' + str(to_date) + ' / AVG:' + str(avg_weight) + 'kg / MIN:' + str(min_weight) + 'kg / MAX:' + str(max_weight) + 'kg'
+            util_health.disp_graph(data, title)
 
         elif mode == 'max_weight':
-            # 最大体重だった日のデータを表示
+            # 今までで最大体重だった日のデータを表示
             max_weight = util_db.select_max_weight(db_file)
             print(max_weight)
 
         elif mode == 'min_weight':
-            # 最小体重だった日のデータを表示
+            # 今までで最小体重だった日のデータを表示
             min_weight = util_db.select_min_weight(db_file)
             print(min_weight)
 
         else:
-            # 期間指定でグラフ表示
-            data = util_db.select_all_for_graph(db_file, from_date, to_date)
-            print(data)
-            util_health.disp_graph(data, from_date + '~' + to_date)
+            print("modeが指定されていませんので、処理を終了します。")
 
         logger.info('end:' + dt_today.strftime('%Y/%m/%d %H:%M:%S'))
 

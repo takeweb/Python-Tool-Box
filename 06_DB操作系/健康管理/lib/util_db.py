@@ -7,16 +7,12 @@ def select_all_for_graph(db_file, from_date, to_date):
     conn = sqlite3.connect(db_file)
     curs = conn.cursor()
     select = '''SELECT
-                    strftime('%d', date(regist_datetime))
+                      strftime('%d', date(regist_datetime))
                     , weight 
                 FROM health 
                 WHERE regist_datetime BETWEEN ? AND ?
                 ORDER BY regist_datetime'''
-    # 日付で検索する場合、時刻部分がが「00:00:00」で検索されることになるので、
-    # TO日時は23:59:59を加算してSQLへバインドする
-    dt_to_date = datetime.datetime.strptime(to_date, '%Y-%m-%d')
-    dt_to_date = dt_to_date + datetime.timedelta(hours=23, minutes=59)
-    to_date = dt_to_date.strftime('%Y-%m-%d %H:%M')
+    to_date = get_to_date_for_search(to_date)
     curs.execute(select, (from_date, to_date))
     rows = curs.fetchall()
     curs.close()
@@ -46,7 +42,7 @@ def select_all(db_file):
     conn = sqlite3.connect(db_file)
     curs = conn.cursor()
     select = '''SELECT 
-                    data_id
+                      data_id
                     , regist_datetime
                     , height
                     , weight
@@ -81,7 +77,7 @@ def select_by_key(db_file, data_id):
     conn = sqlite3.connect(db_file)
     curs = conn.cursor()
     select = '''SELECT
-                    data_id
+                      data_id
                     , regist_datetime
                     , height
                     , weight
@@ -98,7 +94,7 @@ def select_by_key(db_file, data_id):
 
 def select_max_weight(db_file):
     """
-    最大体重だった日のデータを表示
+    最大体重だった日のデータを取得
     """
     conn = sqlite3.connect(db_file)
     curs = conn.cursor()
@@ -121,7 +117,7 @@ def select_max_weight(db_file):
 
 def select_min_weight(db_file):
     """
-    最小体重だった日のデータを表示
+    最小体重だった日のデータを取得
     """
     conn = sqlite3.connect(db_file)
     curs = conn.cursor()
@@ -142,6 +138,64 @@ def select_min_weight(db_file):
     conn.close()
     return row
 
+def select_ave_weight_term(db_file, from_date, to_date):
+    """
+    指定期間の平均体重を取得
+    """
+    conn = sqlite3.connect(db_file)
+    curs = conn.cursor()
+    select = '''SELECT
+                    AVG(weight) 
+                FROM
+                    health
+                WHERE
+                    regist_datetime BETWEEN ? AND ?
+            '''
+    to_date = get_to_date_for_search(to_date)
+    curs.execute(select, (from_date, to_date))
+    row = curs.fetchone()
+    curs.close()
+    conn.close()
+    return round(row[0], 1)
+
+def select_max_weight_term(db_file, from_date, to_date):
+    """
+    指定期間の最大体重を取得
+    """
+    conn = sqlite3.connect(db_file)
+    curs = conn.cursor()
+    select = '''SELECT
+                    MAX(weight)
+                FROM
+                    health
+                WHERE
+                    regist_datetime BETWEEN ? AND ?
+            '''
+    curs.execute(select, (from_date, to_date))
+    row = curs.fetchone()
+    curs.close()
+    conn.close()
+    return round(row[0], 1)
+
+def select_min_weight_term(db_file, from_date, to_date):
+    """
+    指定期間の最小体重を取得
+    """
+    conn = sqlite3.connect(db_file)
+    curs = conn.cursor()
+    select = '''SELECT
+                    MIN(weight)
+                FROM
+                    health
+                WHERE
+                    regist_datetime BETWEEN ? AND ?
+            '''
+    curs.execute(select, (from_date, to_date))
+    row = curs.fetchone()
+    curs.close()
+    conn.close()
+    return round(row[0], 1)
+
 def update_by_key(db_file, data_id, regist_datetime, height, weight, bmi):
     """
     キーで更新
@@ -149,7 +203,7 @@ def update_by_key(db_file, data_id, regist_datetime, height, weight, bmi):
     conn = sqlite3.connect(db_file)
     upd = ('''UPDATE health 
                 SET
-                    regist_datetime = ?
+                      regist_datetime = ?
                     , height = ? 
                     , weight = ? 
                     , bmi = ?
@@ -167,3 +221,14 @@ def delete_by_key(db_file, data_id):
     conn.execute(delete, (data_id, ))
     conn.commit()
     conn.close()
+
+def get_to_date_for_search(to_date):
+    """
+    日付で検索する場合、時刻部分がが「00:00:00」で検索されることになるので、
+    TO日時は23:59:59を加算してSQLへバインドする
+    """
+    dt_to_date = datetime.datetime.strptime(to_date, '%Y-%m-%d')
+    dt_to_date = dt_to_date + datetime.timedelta(hours=23, minutes=59)
+    to_date = dt_to_date.strftime('%Y-%m-%d %H:%M')
+
+    return to_date

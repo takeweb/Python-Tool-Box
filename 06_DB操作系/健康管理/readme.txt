@@ -43,10 +43,21 @@ python manageHelth.py -m min_weight
 python manageHelth.py -m show_monthly_graph -tym 202011
 
 # 指定期間指定でグラフ表示
-python manageHelth.py -m show_graph -from 2020-11-09 -to 2020-12-08
+python manageHelth.py -m show_term_graph -from 2020-11-09 -to 2020-12-08
 
 # 直近１ヶ月でグラフ表示
 python manageHelth.py -m show_past_month_graph -to 2020-12-14
 python manageHelth.py -m show_past_month_graph
+
+# TODO
+# 平均体重をグラフタイトルに表示・・・2021/01/08実装済み
+# 最軽量、最重量の体重をグラフタイトルに表示・・・2021/01/08実装済み
+# 毎月の平均体重の推移
+# グラフをブラウザに表示(Flask化)
+https://qiita.com/5t111111/items/3d9efdbcc630daf0e48f
+
+# 共通処理のテスト
+cd lib
+python -m unittest
 
 以上

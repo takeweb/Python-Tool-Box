@@ -10,11 +10,11 @@ def mk_this_month_dirs(arg_date):
     conf_file = os.path.join(current_dir, "mkdir_list.txt")
     if not os.path.isfile(conf_file):
         print("設定ファイルが存在しません")
-        sys.exit()
+        sys.exit(1)
 
     year = arg_date[0:4]
     month = arg_date[4:6]
-    max_day = calendar.monthlen(int(year), int(month))
+    max_day = calendar.monthrange(int(year), int(month))[1]
 
     # 作成ディレクトリ設定ファイルの読み込み
     with open(conf_file, mode='r', encoding='utf-8') as cfile:

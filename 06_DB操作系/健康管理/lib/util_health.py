@@ -42,18 +42,18 @@ def hantei_bmi(bmi):
         result = "肥満(重)"
     return result
 
-def disp_graph(rows, title_add):
+def disp_graph(rows, title):
     """
     グラフ表示
     """
-    dt_list = []
+    day_list = []
     weight_list = []
     for row in rows:
-        dt_list.append(row[0])
+        day_list.append(row[0])
         weight_list.append(row[1])
-    plt.plot(dt_list, weight_list)
+    plt.plot(day_list, weight_list)
     plt.grid(color='0.8')
-    plt.title("Weight Transition:" + title_add)
+    plt.title(title)
     plt.xlabel("days")
     plt.ylabel("weight(kg)")
     plt.show()

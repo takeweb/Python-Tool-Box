@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-import decUtil
+import util.decUtil as decUtil
 import datetime
 
 class TestConvertDecToAny(unittest.TestCase):
