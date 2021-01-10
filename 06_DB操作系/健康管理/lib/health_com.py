@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg
 
 def calc_bmi(cm_height, weight):
     """
@@ -48,15 +49,37 @@ def disp_graph(rows, title):
     """
     day_list = []
     weight_list = []
+
     for row in rows:
         day_list.append(row[0])
         weight_list.append(row[1])
-    plt.plot(day_list, weight_list)
+    _, ax = plt.subplots(figsize=(9.0, 7.0))
+    ax.set_title(title)
+    ax.plot(day_list, weight_list)
     plt.grid(color='0.8')
-    plt.title(title)
     plt.xlabel("days")
     plt.ylabel("weight(kg)")
     plt.show()
+
+def save_graph(rows, title, file_name):
+    """
+    グラフ画像を保存
+    """
+    day_list = []
+    weight_list = []
+
+    for row in rows:
+        day_list.append(row[0])
+        weight_list.append(row[1])
+    fig, ax = plt.subplots(figsize=(9.0, 7.0))
+    ax.set_title(title)
+    ax.plot(day_list, weight_list)
+    plt.grid(color='0.8')
+    plt.xlabel("days")
+    plt.ylabel("weight(kg)")
+
+    canvas = FigureCanvasAgg(fig)
+    canvas.print_figure(file_name)
 
 def show_bmi(height, weight, target_weight, before=0):
     # BMIと適正体重を計算
@@ -76,3 +99,23 @@ def show_bmi(height, weight, target_weight, before=0):
     if before != 0:
         print("前日比　:" + str(result_ratio)   + "kg")
     return bmi
+
+def get_result_list(height, weight, target_weight, before=0):
+    # BMIと適正体重を計算
+    bmi = calc_bmi(height, weight)
+    suitable_weight = calc_suitable_weight(height)
+
+    result_bmi = hantei_bmi(bmi)
+    result_suitable_weight = round((suitable_weight - weight) * -1, 2)
+    hantei_suitable_weight = 'あと' if result_suitable_weight > 0 else '達成'
+    result_target_weight = round((target_weight - weight) * -1, 2)
+    hantei_target_weight = 'あと' if result_target_weight > 0 else '達成'
+    result_ratio = round((before - weight) * -1, 2)
+
+    result_list = []
+    result_list.append("BMI(Body Mass Index): " + str(bmi) + " / 判定: " + result_bmi)
+    result_list.append("適正体重:" + str(suitable_weight) + "kg" + " / " + hantei_suitable_weight + ": " + str(result_suitable_weight) + "kg！")
+    result_list.append("目標体重:" + str(target_weight)   + "kg" + " / " + hantei_target_weight   + ": " + str(result_target_weight)   + "kg！")
+    if before != 0:
+        result_list.append("前日比　:" + str(result_ratio)   + "kg")
+    return result_list

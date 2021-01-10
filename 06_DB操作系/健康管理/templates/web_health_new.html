@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>書籍管理</title>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+    <body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script src="app.js"></script>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarHealth">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/list"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>&ensp;Health Care Database</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarHealth">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&ensp;登録</a></li>
+                        <li><a href="/list"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&ensp;一覧</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="table-responsive">
+            {%- if health -%}
+            <label>登録されました。</label><BR>
+            {%- endif %}
+            {% for result in result_list %}
+                {{ result }}<BR>
+            {% endfor %}
+            <form method="post" action="/save">
+                <table class="table table-striped" width="70%">
+                    {%- if health -%}
+                    <tr>
+                        <td width="30%">ID：</td>
+                        <td width="70%">
+                            <label>{{ health.data_id }}</label>
+                        </td>
+                    </tr>
+                    {%- endif %}
+                    <tr>
+                        <td>登録日時：</td>
+                        <td>
+                            {%- if health -%}
+                            <label>{{ health.regist_datetime }}</label>
+                            {%- endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>身長：</td>
+                        <td>
+                            {%- if health -%}
+                            <label>{{ health.height }}</label>
+                            {%- else %}
+                            <input type="text" name="health" value="{{ height }}" />
+                            {%- endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>体重：</td>
+                        <td>
+                            {%- if health -%}
+                            <label>{{ health.weight }}</label>
+                            {%- else %}
+                            <input type="text" name="weight" value="{{ health.weight }}" />
+                            {%- endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>BMI：</td>
+                        <td>
+                            {%- if health -%}
+                            <label>{{ health.bmi }}</label>
+                            {%- endif %}
+                        </td>
+                    </tr>
+                </table>
+                {%- if health -%}
+                {%- else %}
+                <input type="submit" value="登録" />
+                <input type="reset" value="クリア" />
+                {%- endif %}
+            </form>
+        </div>
+    </body>
+</html>

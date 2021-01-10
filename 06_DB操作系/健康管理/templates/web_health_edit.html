@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>健康管理</title>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+    <body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarHealth">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/list"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>&ensp;Health Care Database</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarHealth">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/detail/{{ health.data_id }}"><span class="glyphicon glyphicon-saved" aria-hidden="true"></span>&ensp;参照</a></li>
+                        <li class="active"><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&ensp;編集</a></li>
+                        <li><a href="/list"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&ensp;一覧</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="table-responsive">
+            <form method="post" action="/update">
+                <table class="table table-striped" width="70%">
+                    <tr>
+                        <td width="30%">ID：</td>
+                        <td width="70%">
+                            <label>{{ health.data_id }}</label>
+                            <input type="hidden" name="data_id" value="{{ health.data_id }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>登録日時：</td>
+                        <td>
+                            <input type="text" name="regist_datetime" value="{{ health.regist_datetime }}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>身長：</td>
+                        <td>
+                            <input type="text" name="height" value="{{ health.height }}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>体重：</td>
+                        <td>
+                            <input type="text" name="weight" value="{{ health.weight }}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>BMI：</td>
+                        <td>
+                            <label>{{ health.bmi }}</label>
+                        </td>
+                    </tr>
+                </table>
+                <input type="submit" value="更新" />
+            </form>
+        </div>
+    </body>
+</html>
