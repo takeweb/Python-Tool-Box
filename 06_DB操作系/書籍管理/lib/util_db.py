@@ -90,9 +90,6 @@ class Book:
             ''')
         self.conn.commit()
 
-    def db_close(self):
-        self.conn.close()
-
     def save(self):
         """
         データベースに保存
@@ -253,7 +250,7 @@ class Book:
     @classmethod
     def select_by_keyword(self, db_file, keyword):
         """
-        データベースから全件取得
+        データベースからキーワードで検索して取得
         """
         conn = sqlite3.connect(db_file)
         curs = conn.cursor()
@@ -298,3 +295,6 @@ class Book:
                             , row[7], row[8], row[9], row[10], row[11], row[12])
             list.append(book)
         return list
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.conn.close()

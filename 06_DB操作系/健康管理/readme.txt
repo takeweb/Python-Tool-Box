@@ -52,6 +52,7 @@ python manageHelth.py -m show_past_month_graph
 # TODO
 # 平均体重をグラフタイトルに表示・・・2021/01/08実装済み
 # 最軽量、最重量の体重をグラフタイトルに表示・・・2021/01/08実装済み
+# Web(Flask)化・・・2021/01/10実装済み
 # 毎月の平均体重の推移
 # グラフをブラウザに表示(Flask化)
 https://qiita.com/5t111111/items/3d9efdbcc630daf0e48f
@@ -59,5 +60,12 @@ https://qiita.com/5t111111/items/3d9efdbcc630daf0e48f
 # 共通処理のテスト
 cd lib
 python -m unittest
+
+# WEB起動
+python web_health_manage.py
+
+# 一覧表示
+http://localhost:5002/
+
 
 以上
