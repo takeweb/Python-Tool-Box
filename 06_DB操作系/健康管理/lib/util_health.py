@@ -51,6 +51,7 @@ def disp_graph(rows, title):
     for row in rows:
         day_list.append(row[0])
         weight_list.append(row[1])
+    plt.subplots(figsize=(9.0, 7.0))
     plt.plot(day_list, weight_list)
     plt.grid(color='0.8')
     plt.title(title)

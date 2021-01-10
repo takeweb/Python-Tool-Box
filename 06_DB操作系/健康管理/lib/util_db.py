@@ -138,20 +138,28 @@ def select_min_weight(db_file):
     conn.close()
     return row
 
-def select_ave_weight_term(db_file, from_date, to_date):
+def get_disp_min_max_avg(db_file, from_date, to_date):
     """
-    指定期間の平均体重を取得
+    指定期間の最小体重、最大体重、平均体重をまとめて取得、表示文字列で返却
+    """
+    avg_weight = select_ave_weight_term(db_file, str(from_date), str(to_date))
+    min_weight = select_min_weight_term(db_file, str(from_date), str(to_date))
+    max_weight = select_max_weight_term(db_file, str(from_date), str(to_date))
+    return ' / MIN:' + str(min_weight) + 'kg / AVG:' + str(avg_weight) + 'kg'' / MAX:' + str(max_weight) + 'kg'
+
+def select_min_weight_term(db_file, from_date, to_date):
+    """
+    指定期間の最小体重を取得
     """
     conn = sqlite3.connect(db_file)
     curs = conn.cursor()
     select = '''SELECT
-                    AVG(weight) 
+                    MIN(weight)
                 FROM
                     health
                 WHERE
                     regist_datetime BETWEEN ? AND ?
             '''
-    to_date = get_to_date_for_search(to_date)
     curs.execute(select, (from_date, to_date))
     row = curs.fetchone()
     curs.close()
@@ -177,19 +185,20 @@ def select_max_weight_term(db_file, from_date, to_date):
     conn.close()
     return round(row[0], 1)
 
-def select_min_weight_term(db_file, from_date, to_date):
+def select_ave_weight_term(db_file, from_date, to_date):
     """
-    指定期間の最小体重を取得
+    指定期間の平均体重を取得
     """
     conn = sqlite3.connect(db_file)
     curs = conn.cursor()
     select = '''SELECT
-                    MIN(weight)
+                    AVG(weight) 
                 FROM
                     health
                 WHERE
                     regist_datetime BETWEEN ? AND ?
             '''
+    to_date = get_to_date_for_search(to_date)
     curs.execute(select, (from_date, to_date))
     row = curs.fetchone()
     curs.close()
