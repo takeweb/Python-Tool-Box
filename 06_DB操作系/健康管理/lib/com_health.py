@@ -1,5 +1,10 @@
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg
+from io import BytesIO
+import urllib
+from matplotlib.figure import Figure
+import matplotlib
+matplotlib.use('Agg')
 
 def calc_bmi(cm_height, weight):
     """
@@ -71,15 +76,49 @@ def save_graph(rows, title, file_name):
     for row in rows:
         day_list.append(row[0])
         weight_list.append(row[1])
-    fig, ax = plt.subplots(figsize=(9.0, 7.0))
+
+    fig = Figure(figsize=(9.0, 7.0))
+    ax = fig.add_subplot()
     ax.set_title(title)
+    # ax.grid(True)
+    ax.grid(color='0.8')
+    # ax.xlabel("days")
+    # ax.ylabel("weight(kg)")
     ax.plot(day_list, weight_list)
+    
+    canvas = FigureCanvasAgg(fig)
+    canvas.print_figure(file_name)
+    buf = BytesIO()
+    canvas.print_png(buf)
+    img_data = urllib.parse.quote(buf.getvalue())
+
+    return img_data
+
+def save_graph2(rows, title, file_name):
+    """
+    グラフ画像を保存
+    """
+    day_list = []
+    weight_list = []
+
+    for row in rows:
+        day_list.append(row[0])
+        weight_list.append(row[1])
+
+    _, ax = plt.subplots(figsize=(9.0, 7.0))
+    ax.set_title(title)
+
+    plt.plot(day_list, weight_list)
+
     plt.grid(color='0.8')
     plt.xlabel("days")
     plt.ylabel("weight(kg)")
 
-    canvas = FigureCanvasAgg(fig)
-    canvas.print_figure(file_name)
+    img_data = BytesIO()
+    plt.savefig(img_data, format='png')
+    img_data.seek(0)
+
+    return img_data
 
 def show_bmi(height, weight, target_weight, before=0):
     # BMIと適正体重を計算
