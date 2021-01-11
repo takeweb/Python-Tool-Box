@@ -29,7 +29,7 @@ class DbUtil:
                             , bmi FLOAT)''')
         conn.close()
 
-    def select_all_for_graph(self, from_date, to_date):
+    def select_for_graph(self, from_date, to_date):
         """
         指定期間のグラフ用データ取得
         """
