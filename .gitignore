@@ -5,3 +5,4 @@
 *.pyc
 **/.DS_Store
 06_DB操作系/書籍管理/lib/__pycache__/
+tmp/

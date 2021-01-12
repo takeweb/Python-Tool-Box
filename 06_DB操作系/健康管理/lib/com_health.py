@@ -80,7 +80,6 @@ def save_graph(rows, title, file_name):
     fig = Figure(figsize=(9.0, 7.0))
     ax = fig.add_subplot()
     ax.set_title(title)
-    # ax.grid(True)
     ax.grid(color='0.8')
     # ax.xlabel("days")
     # ax.ylabel("weight(kg)")

@@ -10,7 +10,6 @@
     <body>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-        <script src="app.js"></script>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -23,6 +22,7 @@
                 <div class="collapse navbar-collapse" id="navbarHealth">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&ensp;登録</a></li>
+                        <li><a href="/graph"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span>&ensp;グラフ</a></li>
                         <li><a href="/list"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&ensp;一覧</a></li>
                     </ul>
                 </div>
@@ -35,6 +35,7 @@
             {% for result in result_list %}
                 {{ result }}<BR>
             {% endfor %}
+            <BR>
             <form method="post" action="/save">
                 <table class="table table-striped" width="70%">
                     {%- if health -%}

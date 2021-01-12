@@ -87,7 +87,8 @@ if __name__ == '__main__':
         elif mode == 'upd_key':
             bmi = com_health.calc_bmi(height, weight)
             # キーで更新
-            db_util.update_by_key(data_id, dt_regist, height, weight, bmi)
+            # db_util.update_by_key(data_id, dt_regist, height, weight, bmi)
+            db_util.update(com_db.Health(data_id, dt_regist, height, weight, bmi))
 
         elif mode == 'show_bmi':
             # BMIを計算・表示
@@ -100,7 +101,7 @@ if __name__ == '__main__':
             print(from_date)
             to_date = from_date.replace(day=calendar.monthrange(from_date.year, from_date.month)[1])
             print(to_date)
-            data = db_util.select_all_for_graph(str(from_date), str(to_date))            
+            data = db_util.select_for_graph(str(from_date), str(to_date))            
             print(data)
             disp_year_month = target_year_month[0:4] + '-' + target_year_month[4:6]
             title = disp_year_month + '\n' + db_util.get_disp_min_max_avg( str(from_date), str(to_date))
@@ -126,7 +127,7 @@ if __name__ == '__main__':
             print(from_date)
             print(to_date)
 
-            data = db_util.select_all_for_graph(str(from_date), str(to_date))            
+            data = db_util.select_for_graph(str(from_date), str(to_date))            
             print(data)
             title = str(from_date) + '~' + str(to_date) + '\n' + db_util.get_disp_min_max_avg(str(from_date), str(to_date))
             com_health.disp_graph(data, title)
