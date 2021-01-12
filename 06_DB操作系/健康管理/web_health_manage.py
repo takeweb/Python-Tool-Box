@@ -111,28 +111,23 @@ def delete(id):
     db_util.delete_by_key(id)
     return get_list()
 
-@app.route('/graph', methods=['GET'])
+@app.route('/graph', methods=['GET', 'POST'])
 def graph():
     """
     グラフ画面へ遷移
     """
-    dt_to_date = datetime.datetime.today()
-    to_date = str(dt_to_date.strftime('%Y-%m-%d'))
+    if request.method == 'POST':
+        from_date = request.form['from_date']
+        to_date = request.form['to_date']
+    else:
+        dt_to_date = datetime.datetime.today()
+        to_date = str(dt_to_date.strftime('%Y-%m-%d'))
 
-    dt_from_date = get_one_month_before(dt_to_date)
-    from_date = str(dt_from_date.strftime('%Y-%m-%d'))
+        dt_from_date = get_one_month_before(dt_to_date)
+        from_date = str(dt_from_date.strftime('%Y-%m-%d'))
 
-    return render_template('web_health_graph.html', from_date=from_date, to_date=to_date)
-
-@app.route('/search_graph', methods=['POST'])
-def search_graph():
-    """
-    指定期間でグラフ検索
-    """
-    from_date = request.form['from_date']
-    to_date = request.form['to_date']
     data = db_util.select_for_graph(from_date, to_date)
-    print(data)
+    # print(data)
     title = str(from_date) + '~' + str(to_date) + '\n' + db_util.get_disp_min_max_avg(str(from_date), str(to_date))
     graph_date = com_health.save_graph(data, title, png_file_name)
     return render_template('web_health_graph.html', graph_date=graph_date, from_date=from_date, to_date=to_date)
