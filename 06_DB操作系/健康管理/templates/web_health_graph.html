@@ -10,6 +10,15 @@
     <body>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+            function changeRange(navi){
+                let f = document.getElementById('form1'); 
+                f.method = 'post';
+                f.action = '/navi'
+                f.navi.value = navi;
+                f.submit();
+            }
+            </script>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -30,20 +39,19 @@
             </div>
         </nav>
         <div class="table-responsive">
-            <form class=”form-inline” method="post" action="/graph">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="From日時" name="from_date" value="{{ from_date }}" size="20" style="width:100px;" />
+            <form method="post" id="form1">
+                <div class="form-group mb-2 form-inline">
+                    <input type="text" class="form-control" placeholder="From日時" name="from_date" value="{{ from_date }}" size="12" style="width:100px;">&ensp;〜
+                    <input type="text" class="form-control" placeholder="To日時" name="to_date" value="{{ to_date }}" size="12" style="width:100px;">&ensp;
+                    <input type="hidden" name="navi" value="">
+                    <button type="submit" class="btn btn-primary mb-2">検索</button>
+                    <button type="submit" class="btn btn-primary mb-2"onclick="changeRange('before')">前へ</button>
+                    <button type="submit" class="btn btn-primary mb-2"onclick="changeRange('next')">次へ</button>
                 </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="To日時" name="to_date" value="{{ to_date }}" size="20" style="width:100px;" />
-                </div>
-                <div class="form-group">
-                    <input type="submit" class=”form-control" value="検索">
-                </div>
-                {%- if graph_date -%}
-                <img id="plotimg" src="data:image/png:base64,{{ graph_date }}"></img>
-                {%- endif %}
             </form>
+            {%- if graph_date -%}
+              <img id="plotimg" src="data:image/png:base64,{{ graph_date }}"></img>
+            {%- endif %}
         </div>
     </body>
 </html>
