@@ -4,6 +4,8 @@
 from flask import Flask, render_template, request, make_response, send_file
 from flask_table import Table, Col, LinkCol
 import datetime, os, pathlib
+from datetime import datetime as dt
+from dateutil.relativedelta import relativedelta
 from util.dateUtil import conv_str_datetime
 from util.dateUtil import get_one_month_before
 from util.loggingUtil import get_logger
@@ -111,6 +113,28 @@ def delete(id):
     db_util.delete_by_key(id)
     return get_list()
 
+@app.route('/navi', methods=['POST'])
+def navi():
+    """
+    前へ/次へ
+    """
+    if request.method == 'POST':
+        # from_date = request.form['from_date']
+        to_date = request.form['to_date']
+        navi = request.form['navi']
+
+    ajust = 1
+    if navi == 'before':
+        ajust *= -1
+
+    dt_to_date = dt.strptime(to_date, '%Y-%m-%d') + relativedelta(days=ajust)
+    # dt_from_date = dt.strptime(from_date, '%Y-%m-%d') + relativedelta(days=ajust)
+    dt_from_date = get_one_month_before(dt_to_date)
+    # from_date = str(dt_from_date.strftime('%Y-%m-%d'))
+
+    # グラフ画面へ遷移
+    return disp_graph(dt_from_date.strftime('%Y-%m-%d'), dt_to_date.strftime('%Y-%m-%d'))
+
 @app.route('/graph', methods=['GET', 'POST'])
 def graph():
     """
@@ -122,13 +146,19 @@ def graph():
     else:
         dt_to_date = datetime.datetime.today()
         to_date = str(dt_to_date.strftime('%Y-%m-%d'))
-
         dt_from_date = get_one_month_before(dt_to_date)
         from_date = str(dt_from_date.strftime('%Y-%m-%d'))
 
+    # グラフ画面へ遷移
+    return disp_graph(from_date, to_date)
+
+def disp_graph(from_date, to_date):
+    """
+    グラフ画面へ遷移
+    """
     data = db_util.select_for_graph(from_date, to_date)
-    # print(data)
-    title = str(from_date) + '~' + str(to_date) + '\n' + db_util.get_disp_min_max_avg(str(from_date), str(to_date))
+    # title = str(from_date) + '~' + str(to_date) + '\n' + db_util.get_disp_min_max_avg(str(from_date), str(to_date))
+    title = db_util.get_disp_min_max_avg(str(from_date), str(to_date))
     graph_date = com_health.save_graph(data, title, png_file_name)
     return render_template('web_health_graph.html', graph_date=graph_date, from_date=from_date, to_date=to_date)
 
