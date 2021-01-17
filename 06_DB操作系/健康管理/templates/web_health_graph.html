@@ -18,7 +18,7 @@
                 f.navi.value = navi;
                 f.submit();
             }
-            </script>
+        </script>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -45,8 +45,10 @@
                     <input type="text" class="form-control" placeholder="To日時" name="to_date" value="{{ to_date }}" size="12" style="width:100px;">&ensp;
                     <input type="hidden" name="navi" value="">
                     <button type="submit" class="btn btn-primary mb-2">検索</button>
-                    <button type="submit" class="btn btn-primary mb-2"onclick="changeRange('before')">前へ</button>
-                    <button type="submit" class="btn btn-primary mb-2"onclick="changeRange('next')">次へ</button>
+                    <button type="submit" class="btn btn-primary mb-2"onclick="changeRange('before_day')">前へ</button>
+                    <button type="submit" class="btn btn-primary mb-2"onclick="changeRange('next_day')">次へ</button>
+                    <button type="submit" class="btn btn-primary mb-2"onclick="changeRange('before_month')">１ヶ月前へ</button>
+                    <button type="submit" class="btn btn-primary mb-2"onclick="changeRange('next_month')">１ヶ月次へ</button>
                 </div>
             </form>
             {%- if graph_date -%}

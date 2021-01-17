@@ -23,13 +23,30 @@ target_weight = 0
 def get_index():
     return get_list()
 
-@app.route('/list', methods=['GET'])
+@app.route('/list', methods=['GET','POST'])
 def get_list():
     """
     一覧表示
     """
-    list = db_util.select_all()
-    return render_template('web_health_list.html', list=list)
+    page = 1
+    limit = 20
+    offset = 0
+    if request.method == 'POST':
+        page = int(request.form['page'])
+        navi = request.form['navi']
+        print("navi:" + navi)
+        if navi == 'before':
+            page += 1
+        else:
+            page -= 1
+
+    print(page)
+    offset = page * limit - limit
+    print(offset)
+
+    # list = db_util.select_all()
+    list = db_util.select_range(limit, offset)
+    return render_template('web_health_list.html', list=list, page=page)
 
 @app.route('/detail/<int:id>', methods=['GET'])
 def get_detail(id):
@@ -119,18 +136,20 @@ def navi():
     前へ/次へ
     """
     if request.method == 'POST':
-        # from_date = request.form['from_date']
         to_date = request.form['to_date']
         navi = request.form['navi']
+        print("navi:" + navi)
 
-    ajust = 1
-    if navi == 'before':
-        ajust *= -1
+    rd = relativedelta(days=1)
+    if navi == 'before_day':
+        rd = relativedelta(days=-1)
+    elif navi == 'before_month':
+        rd = relativedelta(months=-1)
+    elif navi == 'next_month':
+        rd = relativedelta(months=1)
 
-    dt_to_date = dt.strptime(to_date, '%Y-%m-%d') + relativedelta(days=ajust)
-    # dt_from_date = dt.strptime(from_date, '%Y-%m-%d') + relativedelta(days=ajust)
+    dt_to_date = dt.strptime(to_date, '%Y-%m-%d') + rd
     dt_from_date = get_one_month_before(dt_to_date)
-    # from_date = str(dt_from_date.strftime('%Y-%m-%d'))
 
     # グラフ画面へ遷移
     return disp_graph(dt_from_date.strftime('%Y-%m-%d'), dt_to_date.strftime('%Y-%m-%d'))

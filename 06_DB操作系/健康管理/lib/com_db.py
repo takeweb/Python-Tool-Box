@@ -84,6 +84,35 @@ class DbUtil:
         conn.close()
         return list
 
+    def select_range(self, limit, offset):
+        """
+        データベースから範囲取得
+        """
+        conn = sqlite3.connect(self.db_file)
+        curs = conn.cursor()
+        select = '''SELECT 
+                          data_id
+                        , regist_datetime
+                        , height
+                        , weight
+                        , bmi
+                    FROM
+                        health
+                    ORDER BY
+                        regist_datetime DESC
+                    LIMIT ?
+                    OFFSET ?
+                '''
+        curs.execute(select, (limit, offset))
+        rows = curs.fetchall()
+        curs.close()
+        list = []
+        for row in rows:
+            health = Health(row[0], row[1], row[2], row[3], row[4])
+            list.append(health)
+        conn.close()
+        return list
+
     def select_max_seq(self, table_name):
         """
         最大シーケンス取得
@@ -194,7 +223,8 @@ class DbUtil:
         avg_weight = self.select_ave_weight_term(str(from_date), str(to_date))
         min_weight = self.select_min_weight_term(str(from_date), str(to_date))
         max_weight = self.select_max_weight_term(str(from_date), str(to_date))
-        return 'MIN:' + str(min_weight) + 'kg / AVG:' + str(avg_weight) + 'kg'' / MAX:' + str(max_weight) + 'kg'
+        dif_weight = round(max_weight - min_weight, 2)
+        return 'MIN:' + str(min_weight) + 'kg / AVG:' + str(avg_weight) + 'kg / MAX:' + str(max_weight) + 'kg / MAX-MIN:' + str(dif_weight) + 'kg'
 
     def select_min_weight_term(self, from_date, to_date):
         """

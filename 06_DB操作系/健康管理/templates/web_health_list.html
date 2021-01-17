@@ -10,6 +10,15 @@
     <body>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+            function changeRange(navi){
+                let f = document.getElementById('form1'); 
+                f.method = 'post';
+                f.action = '/list'
+                f.navi.value = navi;
+                f.submit();
+            }
+        </script>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -30,6 +39,17 @@
             </div>
         </nav>
         <div class="table-responsive">
+            <form method="post" id="form1">
+                <div class="form-group mb-2 form-inline">
+                    <input type="text" class="form-control" placeholder="From日時" name="from_date" value="{{ from_date }}" size="12" style="width:100px;">&ensp;〜
+                    <input type="text" class="form-control" placeholder="To日時" name="to_date" value="{{ to_date }}" size="12" style="width:100px;">&ensp;
+                    <input type="hidden" name="navi" value="">
+                    <input type="hidden" name="page" value="{{ page }}">
+                    <button type="submit" class="btn btn-primary mb-2">検索</button>
+                    <button type="submit" class="btn btn-primary mb-2"onclick="changeRange('before')">前へ</button>
+                    <button type="submit" class="btn btn-primary mb-2"onclick="changeRange('next')">次へ</button>
+                </div>
+            </form>
             <table class="table table-striped">
                 <thread>
                     <tr>
