@@ -29,7 +29,7 @@ def get_list():
     一覧表示
     """
     page = 1
-    limit = 20
+    limit = 15
     offset = 0
     if request.method == 'POST':
         page = int(request.form['page'])
@@ -40,11 +40,7 @@ def get_list():
         else:
             page -= 1
 
-    print(page)
     offset = page * limit - limit
-    print(offset)
-
-    # list = db_util.select_all()
     list = db_util.select_range(limit, offset)
     return render_template('web_health_list.html', list=list, page=page)
 
@@ -176,7 +172,6 @@ def disp_graph(from_date, to_date):
     グラフ画面へ遷移
     """
     data = db_util.select_for_graph(from_date, to_date)
-    # title = str(from_date) + '~' + str(to_date) + '\n' + db_util.get_disp_min_max_avg(str(from_date), str(to_date))
     title = db_util.get_disp_min_max_avg(str(from_date), str(to_date))
     graph_date = com_health.save_graph(data, title, png_file_name)
     return render_template('web_health_graph.html', graph_date=graph_date, from_date=from_date, to_date=to_date)

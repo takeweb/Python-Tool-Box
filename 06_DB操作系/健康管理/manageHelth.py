@@ -92,7 +92,10 @@ if __name__ == '__main__':
 
         elif mode == 'show_bmi':
             # BMIを計算・表示
-            com_health.show_bmi(height, weight, target_weight)
+            # com_health.show_bmi(height, weight, target_weight)
+            result_list = com_health.get_result_list(height, weight, target_weight)
+            for result in result_list:
+                print(result)
 
         elif mode == 'show_monthly_graph':
             # 年月指定でグラフ表示
