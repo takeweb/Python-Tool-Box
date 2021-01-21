@@ -29,7 +29,7 @@ def get_list():
     一覧表示
     """
     page = 1
-    limit = 15
+    LIMIT = 15
     offset = 0
     if request.method == 'POST':
         page = int(request.form['page'])
@@ -40,8 +40,8 @@ def get_list():
         else:
             page -= 1
 
-    offset = page * limit - limit
-    list = db_util.select_range(limit, offset)
+    offset = page * LIMIT - LIMIT
+    list = db_util.select_range(LIMIT, offset)
     return render_template('web_health_list.html', list=list, page=page)
 
 @app.route('/detail/<int:id>', methods=['GET'])

@@ -15,14 +15,10 @@ class Health:
 
 class DbUtil:
     def __init__(self, db_file):
-        self.db_init(db_file)
-
-    @classmethod
-    def db_init(self, db_file):
         self.db_file = db_file
         conn = sqlite3.connect(self.db_file)
         conn.execute('''CREATE TABLE IF NOT EXISTS health(
-                            data_id INTEGER PRIMARY KEY AUTOINCREMENT
+                              data_id INTEGER PRIMARY KEY AUTOINCREMENT
                             , regist_datetime TEXT
                             , height FLOAT
                             , weight FLOAT
@@ -36,11 +32,14 @@ class DbUtil:
         conn = sqlite3.connect(self.db_file)
         curs = conn.cursor()
         select = '''SELECT
-                        strftime('%d', date(regist_datetime))
+                          strftime('%d', date(regist_datetime))
                         , weight 
-                    FROM health 
-                    WHERE regist_datetime BETWEEN ? AND ?
-                    ORDER BY regist_datetime'''
+                    FROM
+                        health 
+                    WHERE
+                        regist_datetime BETWEEN ? AND ?
+                    ORDER BY
+                        regist_datetime'''
         to_date = self.get_to_date_for_search(to_date)
         curs.execute(select, (from_date, to_date))
         rows = curs.fetchall()
@@ -58,32 +57,6 @@ class DbUtil:
         conn.commit()
         conn.close()
 
-    def select_all(self):
-        """
-        データベースから全件取得
-        """
-        conn = sqlite3.connect(self.db_file)
-        curs = conn.cursor()
-        select = '''SELECT 
-                          data_id
-                        , regist_datetime
-                        , height
-                        , weight
-                        , bmi
-                    FROM
-                        health
-                    ORDER BY
-                        regist_datetime DESC'''
-        curs.execute(select)
-        rows = curs.fetchall()
-        curs.close()
-        list = []
-        for row in rows:
-            health = Health(row[0], row[1], row[2], row[3], row[4])
-            list.append(health)
-        conn.close()
-        return list
-
     def select_range(self, limit, offset):
         """
         データベースから範囲取得
@@ -92,7 +65,7 @@ class DbUtil:
         curs = conn.cursor()
         select = '''SELECT 
                           data_id
-                        , regist_datetime
+                        , strftime('%Y年%m月%d日 %H:%M:%S', regist_datetime)
                         , height
                         , weight
                         , bmi
@@ -101,8 +74,7 @@ class DbUtil:
                     ORDER BY
                         regist_datetime DESC
                     LIMIT ?
-                    OFFSET ?
-                '''
+                    OFFSET ?'''
         curs.execute(select, (limit, offset))
         rows = curs.fetchall()
         curs.close()
@@ -137,8 +109,7 @@ class DbUtil:
                     FROM
                         health
                     WHERE
-                        regist_datetime = (SELECT MAX(regist_datetime) FROM health)
-                '''
+                        regist_datetime = (SELECT MAX(regist_datetime) FROM health)'''
         curs.execute(select)
         row = curs.fetchone()
         curs.close()
@@ -152,8 +123,8 @@ class DbUtil:
         conn = sqlite3.connect(self.db_file)
         curs = conn.cursor()
         select = '''SELECT
-                    data_id
-                        , regist_datetime
+                          data_id
+                        , strftime('%Y年%m月%d日 %H:%M:%S', regist_datetime)
                         , height
                         , weight
                         , bmi
@@ -176,15 +147,14 @@ class DbUtil:
         curs = conn.cursor()
         select = '''SELECT
                           data_id
-                        , regist_datetime
+                        , strftime('%Y年%m月%d日 %H:%M:%S', regist_datetime)
                         , height
                         , weight
                         , bmi
                     FROM
                         health
                     WHERE
-                        weight = (SELECT MAX(weight) FROM health)
-                '''
+                        weight = (SELECT MAX(weight) FROM health)'''
         curs.execute(select)
         row = curs.fetchone()
         curs.close()
@@ -200,15 +170,14 @@ class DbUtil:
         curs = conn.cursor()
         select = '''SELECT
                           data_id
-                        , regist_datetime
+                        , strftime('%Y年%m月%d日 %H:%M:%S', regist_datetime)
                         , height
                         , weight
                         , bmi
                     FROM
                         health
                     WHERE
-                        weight = (SELECT MIN(weight) FROM health)
-                '''
+                        weight = (SELECT MIN(weight) FROM health)'''
         curs.execute(select)
         row = curs.fetchone()
         curs.close()
@@ -237,8 +206,7 @@ class DbUtil:
                     FROM
                         health
                     WHERE
-                        regist_datetime BETWEEN ? AND ?
-                '''
+                        regist_datetime BETWEEN ? AND ?'''
         curs.execute(select, (from_date, to_date))
         row = curs.fetchone()
         curs.close()
@@ -256,8 +224,7 @@ class DbUtil:
                     FROM
                         health
                     WHERE
-                        regist_datetime BETWEEN ? AND ?
-                '''
+                        regist_datetime BETWEEN ? AND ?'''
         curs.execute(select, (from_date, to_date))
         row = curs.fetchone()
         curs.close()
@@ -275,8 +242,7 @@ class DbUtil:
                     FROM
                         health
                     WHERE
-                        regist_datetime BETWEEN ? AND ?
-                '''
+                        regist_datetime BETWEEN ? AND ?'''
         to_date = self.get_to_date_for_search(to_date)
         curs.execute(select, (from_date, to_date))
         row = curs.fetchone()
@@ -318,7 +284,6 @@ class DbUtil:
         dt_to_date = datetime.datetime.strptime(to_date, '%Y-%m-%d')
         dt_to_date = dt_to_date + datetime.timedelta(hours=23, minutes=59)
         to_date = dt_to_date.strftime('%Y-%m-%d %H:%M')
-
         return to_date
 
     # def __exit__(self, exc_type, exc_value, traceback):
