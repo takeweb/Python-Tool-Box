@@ -4,6 +4,9 @@
 import sys, argparse, datetime, os, re, shutil
 from openpyxl import load_workbook
 
+# 出力ファイル保存先
+save_dir_base = "/mnt/c/Users/oishi/My Documents/99_WORK/"
+
 def createDDL(filename, out_dir_name):
     # DDL生成
     ROW_HEADER_MIN = 4
@@ -171,9 +174,6 @@ def get_file_name(dir_name, table_name):
     return file_name
 
 def get_dir_name():
-    # 出力ファイル保存先
-    save_dir_base = "C:\\Users\\oishi\\Documents\\99_WORK\\"
-
     # 日付取得・分解
     dt_now = datetime.datetime.now()
     year = str(dt_now.year)
