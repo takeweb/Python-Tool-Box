@@ -7,7 +7,7 @@ import com_db
 import com
 import datetime
 
-class TestUtilDb(unittest.TestCase):
+class TestComDb(unittest.TestCase):
     db_file = ''
     def setUp(self):
         # current_dir = pathlib.Path(__file__).resolve().parent
@@ -36,6 +36,9 @@ class TestUtilDb(unittest.TestCase):
 
     def test_select_max_weight_term(self):
         self.assertEqual(75.4, self.db_util.select_max_weight_term('2020-12-09', '2021-01-08'))
+
+    def test_select_min_weight_term(self):
+        self.assertEqual(72.5, self.db_util.select_min_weight_term('2020-12-09', '2021-01-08'))
 
     def test_select_min_weight_term(self):
         self.assertEqual(72.5, self.db_util.select_min_weight_term('2020-12-09', '2021-01-08'))
