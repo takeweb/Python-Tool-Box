@@ -1,4 +1,0 @@
-{
-    "log_filename" : "./log/manageTsaPW.log",
-    "db_file" : "ng_passwd.db"
-}
