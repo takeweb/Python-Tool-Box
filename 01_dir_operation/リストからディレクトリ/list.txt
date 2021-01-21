@@ -1,0 +1,12 @@
+dev_hitachikenki_poc
+dev_hitachikenki_slm
+poc_hitachikenki_1
+poc_hitachikenki_2
+prd_hitachikenki_1
+prd_hitachikenki_2
+prd_hitachikenki_3
+prd_hitachikenki_4
+prd_hitachikenki_batch
+rehea_hitachikenki
+stg_hitachikenki_1
+stg_hitachikenki_2
